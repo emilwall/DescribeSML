@@ -1,10 +1,13 @@
 fun expect it f = f(it)
 
-fun toEqual value = fn result =>
-    if result = value then "pass" else "FAIL"
+local
+    fun ternary operator value = fn result =>
+        if operator(value, result) then "pass" else "FAIL"
+in
+    fun toEqual value = ternary (op =) value
 
-fun toNotEqual value = fn result =>
-    if result <> value then "pass" else "FAIL"
+    fun toNotEqual value = ternary (op <>) value
+end
 
 fun toBe value = toEqual value
 
