@@ -1,3 +1,6 @@
 fun isConsonant c = List.exists (fn c' => c = c') (explode "bcdfghjklmnpqrstvwxz")
 
-fun RobberLanguage s = s ^ "o" ^ s
+structure RobberLanguage =
+struct
+    fun translate s = s ^ "o" ^ s
+end
