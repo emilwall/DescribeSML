@@ -14,4 +14,7 @@ val _ = describe "RobberLanguage.translate"
      fn _ => expect (RobberLanguage.translate "a") toEqual "a",
 
      fn it => "should work for long strings",
-     fn _ => expect (RobberLanguage.translate "a long string") toEqual "a lolonongog sostotrorinongog"]
+     fn _ => expect (RobberLanguage.translate "a long string") toEqual "a lolonongog sostotrorinongog",
+
+     fn it => "should repeat capital consonants as lower case",
+     fn _ => expect (RobberLanguage.translate "Astrid Lindgren") toEqual "Asostotroridod Lolinondodgogrorenon"]

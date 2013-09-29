@@ -1,13 +1,19 @@
 structure RobberLanguage =
 struct
-    fun isConsonant c = List.exists (fn c' => c = c') (explode "bcdfghjklmnpqrstvwxz")
+    fun isConsonant c =
+        let
+            val consonants = explode "bcdfghjklmnpqrstvwxz"
+        in
+            List.exists (fn c' => c = c' orelse (Char.toLower c) = c') consonants
+        end
+
     fun translate s =
     let
         fun process [] acc =
             rev acc
           | process (c::cs) acc =
             process cs (if isConsonant c then
-                            c :: #"o" :: c :: acc
+                            c :: #"o" :: (Char.toLower c) :: acc
                         else
                             c :: acc)
 
