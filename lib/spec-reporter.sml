@@ -1,7 +1,7 @@
 fun isFailure result =
 	String.substring(result, 0, 4) = "FAIL"
 
-fun report expectation result "verbose" =
+fun report "verbose" (expectation, result) =
     concat [expectation, ": ", result, "\n"]
-  | report expectation result _ =
+  | report _ (expectation, result) =
     if isFailure result then "!" else "."
