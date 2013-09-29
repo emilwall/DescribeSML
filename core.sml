@@ -10,17 +10,17 @@ fun describe sut specs =
     let
         fun runSpecs [] acc = concat(rev acc)
             | runSpecs (x::y::zs) acc =
-                runSpecs zs ((x() ^ ": " ^ y() ^ "\n") :: acc)
+                runSpecs zs ((concat [x(), ": ", y(), "\n"]) :: acc)
             | runSpecs (y::zs) acc = runSpecs ((fn _ => "unspecified")::y::[]) acc
     in
-        print ("Ran " ^
-            (Int.toString ((length specs) div 2)) ^
-            " specs:\n" ^
-            runSpecs specs [])
+        print (concat ["Ran ",
+            (Int.toString ((length specs) div 2)),
+            " specs:\n",
+            runSpecs specs []])
     end
 
 fun hello you =
-    "Hello " ^ you ^ "!"
+    concat ["Hello ", you, "!"]
 
 val _ = describe "hello"
     [fn it => "should say hello",
