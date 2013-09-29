@@ -8,9 +8,9 @@ in
 
     fun toNotEqual result = ternary (op <>) result
 
-    fun toBe result = ternary (op =) result
+    val toBe = toEqual
 
-    fun toNotBe result = ternary (op <>) result
+    val toNotBe = toNotEqual
 end
 
 local
@@ -23,6 +23,10 @@ in
     fun toEqualStr value = toStr (op =) "equal" value
 
     fun toNotEqualStr value = toStr (op <>) "NOT equal" value
+
+    val toBeStr = toEqualStr
+
+    val toNotBeStr = toNotEqualStr
 end
 
 fun toThrow callback = fn exc =>
