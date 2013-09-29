@@ -1,17 +1,17 @@
 fun expect it f = f(it)
 
 local
-    fun ternary operator value = fn result =>
-        if operator(value, result) then "pass" else "FAIL"
+    fun ternary operator result value =
+        if operator(result, value) then "pass" else "FAIL"
 in
-    fun toEqual value = ternary (op =) value
+    fun toEqual result = ternary (op =) result
 
-    fun toNotEqual value = ternary (op <>) value
+    fun toNotEqual result = ternary (op <>) result
+
+    fun toBe result = ternary (op =) result
+
+    fun toNotBe result = ternary (op <>) result
 end
-
-fun toBe value = toEqual value
-
-fun toNotBe value = toNotEqual value
 
 fun toThrow callback = fn exc =>
     (callback(); "FAIL: did not raise " ^ (exnName exc))
