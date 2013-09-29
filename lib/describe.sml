@@ -3,9 +3,10 @@ fun describe sut specs =
         fun report x y =
             concat [x(), ": ", y(), "\n"]
         fun runSpecs [] acc = concat(rev acc)
+            | runSpecs [spec] [] =
+                spec() ^ "\n"
             | runSpecs (x::y::zs) acc =
                 runSpecs zs ((report x y) :: acc)
-            | runSpecs (y::zs) acc = runSpecs ((fn _ => "unspecified")::y::[]) acc
     in
         print (concat ["Ran ",
             (Int.toString ((length specs) div 2)),
