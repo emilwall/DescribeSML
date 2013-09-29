@@ -1,12 +1,16 @@
 fun describe sut specs =
     let
-        fun report x y =
-            concat [x(), ": ", y(), "\n"]
-        fun runSpecs [] acc = concat(rev acc)
-            | runSpecs [spec] [] =
-                spec() ^ "\n"
-            | runSpecs (x::y::zs) acc =
-                runSpecs zs ((report x y) :: acc)
+        fun report expectation result =
+            concat [expectation, ": ", result, "\n"]
+
+        fun runSpecs [spec] [] =
+            report "result" (spec())
+          | runSpecs [] reports =
+            concat(rev reports)
+          | runSpecs (expectation::spec::specs) reports =
+            runSpecs specs (report (expectation()) (spec()) :: reports)
+          | runSpecs (spec::specs) reports =
+            raise Fail "Multiple specs should be pairwise coupled with their expectations"
     in
         print (concat ["Ran ",
             (Int.toString ((length specs) div 2)),
