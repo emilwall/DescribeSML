@@ -1,12 +1,12 @@
 fun expect it f = f(it)
 
 local
-    fun ternary operator result value =
-        if operator(result, value) then "pass" else "FAIL"
+    fun ternary operator value result =
+        if operator(value, result) then "pass" else "FAIL"
 in
-    fun toEqual result = ternary (op =) result
+    fun toEqual value = ternary (op =) value
 
-    fun toNotEqual result = ternary (op <>) result
+    fun toNotEqual value = ternary (op <>) value
 
     val toBe = toEqual
 
@@ -14,15 +14,15 @@ in
 end
 
 local
-    fun toStr operator relation value result =
+    fun toStr operator relation result value =
         if operator(value, result) then
             "pass"
         else
             concat ["FAIL: expected ", result, " to ", relation, " ", value]
 in
-    fun toEqualStr value = toStr (op =) "equal" value
+    fun toEqualStr result = toStr (op =) "equal" result
 
-    fun toNotEqualStr value = toStr (op <>) "NOT equal" value
+    fun toNotEqualStr result = toStr (op <>) "NOT equal" result
 
     val toBeStr = toEqualStr
 
@@ -30,15 +30,15 @@ in
 end
 
 local
-    fun toInt operator relation value result =
+    fun toInt operator relation result value =
         if operator(value, result) then
             "pass"
         else
             concat ["FAIL: expected ", Int.toString(result), " to ", relation, " ", Int.toString(value)]
 in
-    fun toEqualInt value = toInt (op =) "equal" value
+    fun toEqualInt result = toInt (op =) "equal" result
 
-    fun toNotEqualInt value = toInt (op <>) "NOT equal" value
+    fun toNotEqualInt result = toInt (op <>) "NOT equal" result
 
     val toBeInt = toEqualInt
 
