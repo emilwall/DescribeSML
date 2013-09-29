@@ -29,6 +29,22 @@ in
     val toNotBeStr = toNotEqualStr
 end
 
+local
+    fun toInt operator relation value result =
+        if operator(value, result) then
+            "pass"
+        else
+            concat ["FAIL: expected ", Int.toString(result), " to ", relation, " ", Int.toString(value)]
+in
+    fun toEqualInt value = toInt (op =) "equal" value
+
+    fun toNotEqualInt value = toInt (op <>) "NOT equal" value
+
+    val toBeInt = toEqualInt
+
+    val toNotBeInt = toNotEqualInt
+end
+
 fun toThrow callback = fn exc =>
     (callback(); "FAIL: did not raise " ^ (exnName exc))
     handle exc => "pass"
