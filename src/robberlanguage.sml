@@ -13,7 +13,7 @@ struct
             rev acc
           | process (c::cs) acc =
             process cs (if isConsonant c then
-                            c :: #"o" :: (Char.toLower c) :: acc
+                            (Char.toLower c) :: #"o" :: c :: acc
                         else
                             c :: acc)
 
