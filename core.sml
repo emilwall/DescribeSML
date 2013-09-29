@@ -1,4 +1,4 @@
-fun expect it f = f(it);
+fun expect it f = f(it)
 
 fun toEqual value = fn result =>
     if result = value then
@@ -17,14 +17,14 @@ fun describe sut specs =
             (Int.toString ((length specs) div 2)) ^
             " specs:\n" ^
             runSpecs specs [])
-    end;
+    end
 
 fun hello you =
-    "Hello " ^ you ^ "!";
+    "Hello " ^ you ^ "!"
 
-describe "hello"
+val _ = describe "hello"
     [fn it => "should say hello",
      fn _ => expect (hello "World") toEqual("Hello World!"),
 
      fn it => "should greet you",
-     fn _ => expect (hello "You") toEqual("Hello You!")];
+     fn _ => expect (hello "You") toEqual("Hello You!")]
