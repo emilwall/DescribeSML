@@ -1,11 +1,3 @@
-fun expect it f = f(it)
-
-fun toEqual value = fn result =>
-    if result = value then
-        "pass"
-    else
-        "FAIL"
-
 fun describe sut specs =
     let
         fun runSpecs [] acc = concat(rev acc)
@@ -18,13 +10,3 @@ fun describe sut specs =
             " specs:\n",
             runSpecs specs []])
     end
-
-fun hello you =
-    concat ["Hello ", you, "!"]
-
-val _ = describe "hello"
-    [fn it => "should say hello",
-     fn _ => expect (hello "World") toEqual("Hello World!"),
-
-     fn it => "should greet you",
-     fn _ => expect (hello "You") toEqual("Hello You!")]
