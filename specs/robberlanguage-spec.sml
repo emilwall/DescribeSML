@@ -14,13 +14,13 @@ val _ = describe "RobberLanguage.isConsonant"
 
 val _ = describe "RobberLanguage.translate"
     [fn it => "should repeat consonant with the letter o inserted in between",
-     fn _ => expect (RobberLanguage.translate "s") toEqual "sos",
+     fn _ => expect (RobberLanguage.translate "s") toEqualStr "sos",
 
      fn it => "should not repeat vowels",
-     fn _ => expect (RobberLanguage.translate "a") toEqual "a",
+     fn _ => expect (RobberLanguage.translate "a") toEqualStr "a",
 
      fn it => "should work for long strings",
-     fn _ => expect (RobberLanguage.translate "a long string") toEqual "a lolonongog sostotrorinongog",
+     fn _ => expect (RobberLanguage.translate "a long string") toEqualStr "a lolonongog sostotrorinongog",
 
      fn it => "should repeat capital consonants as lower case",
-     fn _ => expect (RobberLanguage.translate "Astrid Lindgren") toEqual "Asostotroridod Lolinondodgogrorenon"]
+     fn _ => expect (RobberLanguage.translate "Astrid Lindgren") toEqualStr "Asostotroridod Lolinondodgogrorenon"]
