@@ -19,5 +19,5 @@ fun describe sut specs =
                 else ["\n"]),
             "\nFailures: ",
             Int.toString(length failures),
-            "\n"])
+            "\n===========\n\n"])
     end
