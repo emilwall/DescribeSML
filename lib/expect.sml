@@ -17,5 +17,5 @@ fun toBe value = toEqual value
 fun toNotBe value = toNotEqual value
 
 fun toThrow callback = fn exc =>
-    (callback(); "FAIL")
+    (callback(); "FAIL: did not raise " ^ (exnName exc))
     handle exc => "pass"
