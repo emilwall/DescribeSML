@@ -9,4 +9,10 @@ val _ = describe "toContain"
      fn _ => expect (toContain [1, 3] 2) toNotEqualStr "pass",
 
      fn it => "should pass when list contains value",
-     fn _ => expect (toContain [1, 2, 3] 2) toEqualStr "pass"]
+     fn _ => expect (toContain [1, 2, 3] 2) toEqualStr "pass",
+
+     fn it => "should work on char values",
+     fn _ => expect (toContain (explode "[1, 2, 3]") #"2") toEqualStr "pass",
+
+     fn it => "should work on string values",
+     fn _ => expect (toContain ["ab", "cd", "ef"] "ab") toEqualStr "pass"]
