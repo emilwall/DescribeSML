@@ -45,6 +45,16 @@ in
     val toNotBeInt = toNotEqualInt
 end
 
+fun toContain result value =
+    let
+        val containsValue = List.exists (fn a => a = value) result
+    in
+        if containsValue then
+            "pass"
+        else
+            "FAIL: List did not contain expected value"
+    end
+
 fun toThrow callback = fn exc =>
     (callback(); "FAIL: did not raise " ^ (exnName exc))
     handle exc => "pass"
