@@ -1,3 +1,8 @@
+CM.make "$/regexp-lib.cm";
+structure RE = RegExpFn (
+      structure P = AwkSyntax
+      structure E = BackTrackEngine);
+
 fun expect it f = f(it)
 
 local
@@ -54,6 +59,11 @@ fun toContain result value =
         else
             "FAIL: List did not contain expected value"
     end
+
+fun toMatch result value =
+    case StringCvt.scanString (RE.find (RE.compileString value)) result of
+        NONE => concat ["FAIL: expected \"", result, "\" to match \"", value, "\""]
+      | SOME match => "pass"
 
 fun toThrow callback = fn exc =>
     (callback(); "FAIL: did not raise " ^ (exnName exc))
