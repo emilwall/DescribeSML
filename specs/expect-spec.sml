@@ -17,6 +17,22 @@ val _ = describe "toContain"
      fn it => "should work on string values",
      fn _ => expect (toContain ["ab", "cd", "ef"] "ab") toEqualStr "pass"]
 
+val _ = describe "toNotContain"
+    [fn it => "should pass for empty list",
+     fn _ => expect (toNotContain [] 0) toEqualStr "pass",
+
+     fn it => "should pass when list does not contain value",
+     fn _ => expect (toNotContain [1, 3] 2) toEqualStr "pass",
+
+     fn it => "should fail when list contains value",
+     fn _ => expect (toNotContain [1, 2, 3] 2) toNotEqualStr "pass",
+
+     fn it => "should work on char values",
+     fn _ => expect (toNotContain (explode "[1, 3]") #"2") toEqualStr "pass",
+
+     fn it => "should work on string values",
+     fn _ => expect (toNotContain ["abc", "def"] "ab") toEqualStr "pass"]
+
 val _ = describe "toMatch"
     [fn it => "should match empty string with end terminal",
      fn _ => expect (toMatch "" "$") toEqualStr "pass",

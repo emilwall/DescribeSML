@@ -60,6 +60,16 @@ fun toContain result value =
             "FAIL: List did not contain expected value"
     end
 
+fun toNotContain result value =
+    let
+        val containsValue = List.exists (fn a => a = value) result
+    in
+        if not containsValue then
+            "pass"
+        else
+            "FAIL: Expected list to not contain value"
+    end
+
 fun toMatch result value =
     case StringCvt.scanString (RE.find (RE.compileString value)) result of
         NONE => concat ["FAIL: expected \"", result, "\" to match \"", value, "\""]
