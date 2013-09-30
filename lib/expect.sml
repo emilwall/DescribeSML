@@ -18,7 +18,7 @@ local
         if operator(value, result) then
             "pass"
         else
-            concat ["FAIL: expected ", result, " to ", relation, " ", value]
+            concat ["FAIL: expected \"", result, "\" to ", relation, " \"", value, "\""]
 in
     fun toEqualStr result = toStr (op =) "equal" result
 
@@ -34,7 +34,7 @@ local
         if operator(value, result) then
             "pass"
         else
-            concat ["FAIL: expected ", Int.toString(result), " to ", relation, " ", Int.toString(value)]
+            concat ["FAIL: expected \"", Int.toString(result), "\" to ", relation, " \"", Int.toString(value), "\""]
 in
     fun toEqualInt result = toInt (op =) "equal" result
 
