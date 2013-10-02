@@ -3,24 +3,24 @@ use "../lib/expect.sml";
 use "../src/robberlanguage.sml";
 
 val _ = describe "RobberLanguage.isConsonant"
-    [should(" consider b to be a consonant", fn () =>
+    [should("consider b to be a consonant", fn () =>
         expect (RobberLanguage.isConsonant #"b") toBe true),
 
-     should(" consider B to be a consonant", fn () =>
+     should("consider B to be a consonant", fn () =>
         expect (RobberLanguage.isConsonant #"B") toBe true),
 
-     should(" not consider a to be a consonant", fn () =>
+     should("not consider a to be a consonant", fn () =>
         expect (RobberLanguage.isConsonant #"a") toBe false)]
 
 val _ = describe "RobberLanguage.translate"
-    [should(" repeat consonant with the letter o inserted in between", fn () =>
+    [should("repeat consonant with the letter o inserted in between", fn () =>
         expect (RobberLanguage.translate "s") toEqualStr "sos"),
 
-     should(" not repeat vowels", fn () =>
+     should("not repeat vowels", fn () =>
         expect (RobberLanguage.translate "a") toEqualStr "a"),
 
-     should(" work for long strings", fn () =>
+     should("work for long strings", fn () =>
         expect (RobberLanguage.translate "a long string") toEqualStr "a lolonongog sostotrorinongog"),
 
-     should(" repeat capital consonants as lower case", fn () =>
+     should("repeat capital consonants as lower case", fn () =>
         expect (RobberLanguage.translate "Astrid Lindgren") toEqualStr "Asostotroridod Lolinondodgogrorenon")]
