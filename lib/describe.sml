@@ -1,15 +1,13 @@
-use "../lib/spec-runner.sml";
 use "../lib/spec-reporter.sml";
 
 fun describe sut specs =
     let
-        val results = runSpecs specs []
-        val failures = List.filter (fn (_, result) => isFailure result) results
-        val resultReport = map (report "concise") results
+        val failures = List.filter (fn (_, result) => isFailure result) specs
+        val resultReport = map (report "concise") specs
         val failureReport = map (report "verbose") failures
     in
         print (concat ["Ran ",
-            Int.toString ((length specs + 1) div 2),
+            Int.toString (length specs),
             " specs for ",
             sut,
             ":\n\n",
@@ -21,3 +19,5 @@ fun describe sut specs =
             Int.toString(length failures),
             "\n===========\n\n"])
     end
+
+fun should(description, spec) = (description, spec())
