@@ -51,13 +51,15 @@ end
 local
     fun checkListWith relation result value =
     let
+        fun checkNth n = n >= 0 andalso length result > n andalso List.nth(result, n) = value
         val containsValue = List.exists (fn a => a = value) result
-        val beginsWithValue = not (null result) andalso hd result = value
         val success = case relation of
             "contain" => containsValue
           | "not contain" => not containsValue
-          | "begin with" => beginsWithValue
-          | "not begin with" => not beginsWithValue
+          | "begin with" => checkNth 0
+          | "not begin with" => not (checkNth 0)
+          | "end with" => checkNth (length result - 1)
+          | "not end with" => not (checkNth (length result - 1))
     in
         if success then
             "pass"
@@ -72,6 +74,10 @@ in
     fun toBeginWith result = checkListWith "begin with" result
 
     fun toNotBeginWith result = checkListWith "not begin with" result
+
+    fun toEndWith result = checkListWith "end with" result
+
+    fun toNotEndWith result = checkListWith "not end with" result
 end;
 
 Control.polyEqWarn := true; (* Re-enable polyEqual warnings as there should be no more polymorphic equality after this point *)

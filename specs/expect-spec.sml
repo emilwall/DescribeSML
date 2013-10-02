@@ -71,6 +71,50 @@ val _ = describe "toNotBeginWith"
      should("work on string values", fn () =>
         expect (toNotBeginWith ["abc", "def"] "ab") toEqualStr "pass")]
 
+val _ = describe "toEndWith"
+    [should("fail for empty list", fn () =>
+        expect (toEndWith [] 0) toNotEqualStr "pass"),
+
+     should("fail when list does not contain value", fn () =>
+        expect (toEndWith [1, 3] 2) toNotEqualStr "pass"),
+
+     should("fail when list contains but does not end with value", fn () =>
+        expect (toEndWith [1, 2, 3] 2) toNotEqualStr "pass"),
+
+     should("fail when list begins with value", fn () =>
+        expect (toEndWith [1, 2, 3] 1) toNotEqualStr "pass"),
+
+     should("pass when list ends with value", fn () =>
+        expect (toEndWith [1, 2, 3] 3) toEqualStr "pass"),
+
+     should("work on char values", fn () =>
+        expect (toEndWith (explode "[1, 2, 3]") #"]") toEqualStr "pass"),
+
+     should("work on string values", fn () =>
+        expect (toEndWith ["ab", "cd", "ef"] "ef") toEqualStr "pass")]
+
+val _ = describe "toNotEndWith"
+    [should("pass for empty list", fn () =>
+        expect (toNotEndWith [] 0) toEqualStr "pass"),
+
+     should("pass when list does not contain value", fn () =>
+        expect (toNotEndWith [1, 3] 2) toEqualStr "pass"),
+
+     should("pass when list contains but does not begin with value", fn () =>
+        expect (toNotEndWith [1, 2, 3] 2) toEqualStr "pass"),
+
+     should("pass when list begins with value", fn () =>
+        expect (toNotEndWith [1, 2, 3] 1) toEqualStr "pass"),
+
+     should("fail when list ends with value", fn () =>
+        expect (toNotEndWith [1, 2, 3] 3) toNotEqualStr "pass"),
+
+     should("work on char values", fn () =>
+        expect (toNotEndWith (explode "[1, 2, 3]") #"3") toEqualStr "pass"),
+
+     should("work on string values", fn () =>
+        expect (toNotEndWith ["abc", "def"] "ab") toEqualStr "pass")]
+
 val _ = describe "toMatch"
     [should("match empty string with end terminal", fn () =>
         expect (toMatch "" "$") toEqualStr "pass"),
