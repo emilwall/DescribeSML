@@ -1,7 +1,5 @@
-CM.make "$/regexp-lib.cm";
-structure RE = RegExpFn (
-    structure P = AwkSyntax
-    structure E = BackTrackEngine);
+CM.make "$/regexp-lib.cm"; (* Used for toMatch *)
+Control.polyEqWarn := false; (* Suppress polyEqual warnings as using polymorphic equality is intentional *)
 
 fun expect it f = f(it)
 
@@ -64,12 +62,20 @@ in
     fun toContain result = checkListWith "contain" result
 
     fun toNotContain result = checkListWith "not contain" result
-end
+end;
 
-fun toMatch result value =
-    case StringCvt.scanString (RE.find (RE.compileString value)) result of
-        NONE => concat ["FAIL: expected \"", result, "\" to match \"", value, "\""]
-      | SOME match => "pass"
+Control.polyEqWarn := true; (* Re-enable polyEqual warnings as there should be no more polymorphic equality after this point *)
+
+local
+    structure RE = RegExpFn (
+        structure P = AwkSyntax
+        structure E = BackTrackEngine)
+in
+    fun toMatch result value =
+        case StringCvt.scanString (RE.find (RE.compileString value)) result of
+            NONE => concat ["FAIL: expected \"", result, "\" to match \"", value, "\""]
+          | SOME match => "pass"
+end
 
 fun toThrow callback exc =
     (callback(); "FAIL: did not raise " ^ (exnName exc))
