@@ -33,6 +33,44 @@ val _ = describe "toNotContain"
      should(" work on string values", fn () =>
         expect (toNotContain ["abc", "def"] "ab") toEqualStr "pass")]
 
+val _ = describe "toBeginWith"
+    [should(" fail for empty list", fn () =>
+        expect (toBeginWith [] 0) toNotEqualStr "pass"),
+
+     should(" fail when list does not contain value", fn () =>
+        expect (toBeginWith [1, 3] 2) toNotEqualStr "pass"),
+
+     should(" fail when list contains but does not begin with value", fn () =>
+        expect (toBeginWith [1, 2, 3] 2) toNotEqualStr "pass"),
+
+     should(" pass when list begins with value", fn () =>
+        expect (toBeginWith [1, 2, 3] 1) toEqualStr "pass"),
+
+     should(" work on char values", fn () =>
+        expect (toBeginWith (explode "[1, 2, 3]") #"[") toEqualStr "pass"),
+
+     should(" work on string values", fn () =>
+        expect (toBeginWith ["ab", "cd", "ef"] "ab") toEqualStr "pass")]
+
+val _ = describe "toNotBeginWith"
+    [should(" pass for empty list", fn () =>
+        expect (toNotBeginWith [] 0) toEqualStr "pass"),
+
+     should(" pass when list does not contain value", fn () =>
+        expect (toNotBeginWith [1, 3] 2) toEqualStr "pass"),
+
+     should(" pass when list contains but does not begin with value", fn () =>
+        expect (toNotBeginWith [1, 2, 3] 2) toEqualStr "pass"),
+
+     should(" fail when list begins with value", fn () =>
+        expect (toNotBeginWith [1, 2, 3] 1) toNotEqualStr "pass"),
+
+     should(" work on char values", fn () =>
+        expect (toNotBeginWith (explode "[1, 2, 3]") #"1") toEqualStr "pass"),
+
+     should(" work on string values", fn () =>
+        expect (toNotBeginWith ["abc", "def"] "ab") toEqualStr "pass")]
+
 val _ = describe "toMatch"
     [should(" match empty string with end terminal", fn () =>
         expect (toMatch "" "$") toEqualStr "pass"),

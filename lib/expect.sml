@@ -52,8 +52,14 @@ local
     fun checkListWith relation result value =
     let
         val containsValue = List.exists (fn a => a = value) result
+        val beginsWithValue = not (null result) andalso hd result = value
+        val success = case relation of
+            "contain" => containsValue
+          | "not contain" => not containsValue
+          | "begin with" => beginsWithValue
+          | "not begin with" => not beginsWithValue
     in
-        if (relation = "contain") = containsValue then
+        if success then
             "pass"
         else
             concat ["FAIL: Expected List to ", relation, " value"]
@@ -62,6 +68,10 @@ in
     fun toContain result = checkListWith "contain" result
 
     fun toNotContain result = checkListWith "not contain" result
+
+    fun toBeginWith result = checkListWith "begin with" result
+
+    fun toNotBeginWith result = checkListWith "not begin with" result
 end;
 
 Control.polyEqWarn := true; (* Re-enable polyEqual warnings as there should be no more polymorphic equality after this point *)
