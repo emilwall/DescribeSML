@@ -154,4 +154,13 @@ val _ = describe "toThrow"
         expect (toThrow (fn _ => raise Empty) Empty) toEqualStr "pass"),
 
      should("fail when another exception is thrown", fn () =>
-        expect (toThrow (fn _ => raise Domain) Empty) toNotEqualStr "pass")]
+        expect (toThrow (fn _ => raise Domain) Empty) toNotEqualStr "pass"),
+
+     should("handle exceptions with messages", fn () =>
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "msg")) toEqualStr "pass"),
+
+     should("fail when exception message differs", fn () =>
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toNotEqualStr "pass"),
+
+     should("put exception message in quotes in failure message", fn () =>
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toEqualStr "FAIL: raised Fail with message \"Fail: msg\" instead of Fail with message \"Fail: another\"")]
