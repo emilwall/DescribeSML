@@ -145,3 +145,13 @@ val _ = describe "toMatch"
 
      should("match numbers with interval", fn () =>
         expect (toMatch "123" "^[0-9]*$") toEqualStr "pass")]
+
+val _ = describe "toThrow"
+    [should("fail when no exception is thrown", fn () =>
+        expect (toThrow (fn _ => 0) Empty) toNotEqualStr "pass"),
+
+     should("pass when specified exception is thrown", fn () =>
+        expect (toThrow (fn _ => raise Empty) Empty) toEqualStr "pass"),
+
+     should("fail when another exception is thrown", fn () =>
+        expect (toThrow (fn _ => raise Domain) Empty) toNotEqualStr "pass")]

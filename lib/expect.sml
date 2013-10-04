@@ -93,6 +93,9 @@ in
           | SOME match => "pass"
 end
 
-fun toThrow callback exc =
-    (callback(); "FAIL: did not raise " ^ (exnName exc))
-    handle exc => "pass"
+fun toThrow callback exc1 =
+    (callback(); "FAIL: did not raise " ^ (exnName exc1))
+    handle exc2 => if exnName exc2 = exnName exc1 then
+        "pass"
+    else
+        "FAIL: raised " ^ (exnName exc2) ^ " instead of " ^ (exnName exc1)
