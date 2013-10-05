@@ -1,7 +1,8 @@
 use "../lib/describe.sml";
 use "../lib/expect.sml";
 
-val _ = describe "toContain"
+suite (describe "matchers" [
+describe "toContain"
     [should("fail for empty list", fn () =>
         expect (toContain [] 0) toNotEqualStr "pass"),
 
@@ -15,9 +16,9 @@ val _ = describe "toContain"
         expect (toContain (explode "[1, 2, 3]") #"2") toEqualStr "pass"),
 
      should("work on string values", fn () =>
-        expect (toContain ["ab", "cd", "ef"] "ab") toEqualStr "pass")]
+        expect (toContain ["ab", "cd", "ef"] "ab") toEqualStr "pass")],
 
-val _ = describe "toNotContain"
+describe "toNotContain"
     [should("pass for empty list", fn () =>
         expect (toNotContain [] 0) toEqualStr "pass"),
 
@@ -31,9 +32,9 @@ val _ = describe "toNotContain"
         expect (toNotContain (explode "[1, 3]") #"2") toEqualStr "pass"),
 
      should("work on string values", fn () =>
-        expect (toNotContain ["abc", "def"] "ab") toEqualStr "pass")]
+        expect (toNotContain ["abc", "def"] "ab") toEqualStr "pass")],
 
-val _ = describe "toBeginWith"
+describe "toBeginWith"
     [should("fail for empty list", fn () =>
         expect (toBeginWith [] 0) toNotEqualStr "pass"),
 
@@ -50,9 +51,9 @@ val _ = describe "toBeginWith"
         expect (toBeginWith (explode "[1, 2, 3]") #"[") toEqualStr "pass"),
 
      should("work on string values", fn () =>
-        expect (toBeginWith ["ab", "cd", "ef"] "ab") toEqualStr "pass")]
+        expect (toBeginWith ["ab", "cd", "ef"] "ab") toEqualStr "pass")],
 
-val _ = describe "toNotBeginWith"
+describe "toNotBeginWith"
     [should("pass for empty list", fn () =>
         expect (toNotBeginWith [] 0) toEqualStr "pass"),
 
@@ -69,9 +70,9 @@ val _ = describe "toNotBeginWith"
         expect (toNotBeginWith (explode "[1, 2, 3]") #"1") toEqualStr "pass"),
 
      should("work on string values", fn () =>
-        expect (toNotBeginWith ["abc", "def"] "ab") toEqualStr "pass")]
+        expect (toNotBeginWith ["abc", "def"] "ab") toEqualStr "pass")],
 
-val _ = describe "toEndWith"
+describe "toEndWith"
     [should("fail for empty list", fn () =>
         expect (toEndWith [] 0) toNotEqualStr "pass"),
 
@@ -91,9 +92,9 @@ val _ = describe "toEndWith"
         expect (toEndWith (explode "[1, 2, 3]") #"]") toEqualStr "pass"),
 
      should("work on string values", fn () =>
-        expect (toEndWith ["ab", "cd", "ef"] "ef") toEqualStr "pass")]
+        expect (toEndWith ["ab", "cd", "ef"] "ef") toEqualStr "pass")],
 
-val _ = describe "toNotEndWith"
+describe "toNotEndWith"
     [should("pass for empty list", fn () =>
         expect (toNotEndWith [] 0) toEqualStr "pass"),
 
@@ -113,9 +114,9 @@ val _ = describe "toNotEndWith"
         expect (toNotEndWith (explode "[1, 2, 3]") #"3") toEqualStr "pass"),
 
      should("work on string values", fn () =>
-        expect (toNotEndWith ["abc", "def"] "ab") toEqualStr "pass")]
+        expect (toNotEndWith ["abc", "def"] "ab") toEqualStr "pass")],
 
-val _ = describe "toMatch"
+describe "toMatch"
     [should("match empty string with end terminal", fn () =>
         expect (toMatch "" "$") toEqualStr "pass"),
 
@@ -144,9 +145,9 @@ val _ = describe "toMatch"
         expect (toMatch "aaa" "^a*$") toEqualStr "pass"),
 
      should("match numbers with interval", fn () =>
-        expect (toMatch "123" "^[0-9]*$") toEqualStr "pass")]
+        expect (toMatch "123" "^[0-9]*$") toEqualStr "pass")],
 
-val _ = describe "toThrow"
+describe "toThrow"
     [should("fail when no exception is thrown", fn () =>
         expect (toThrow (fn _ => 0) Empty) toNotEqualStr "pass"),
 
@@ -164,3 +165,4 @@ val _ = describe "toThrow"
 
      should("put exception message in quotes in failure message", fn () =>
         expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toEqualStr "FAIL: raised Fail with message \"Fail: msg\" instead of Fail with message \"Fail: another\"")]
+])
