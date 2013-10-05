@@ -6,7 +6,7 @@ fun describe sut specs =
         val resultReport = map (report "concise") specs
         val failureReport = map (report "verbose") failures
     in
-        (print (concat ["Ran ",
+        (concat ["Ran ",
             Int.toString (length specs),
             " specs for ",
             sut,
@@ -17,10 +17,10 @@ fun describe sut specs =
                 else ["\n"]),
             "\nFailures: ",
             Int.toString(length failures),
-            "\n===========\n\n"]);
-        (sut, if length failures > 0
-                then "FAIL: a nested spec failed, see report above."
-                else "pass"))
+            "\n===========\n\n"],
+        (if length failures > 0
+            then "FAIL: a nested spec failed, see report above."
+            else "pass"))
     end
 
 fun should(description, spec) = (description, spec())
