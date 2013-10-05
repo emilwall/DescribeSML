@@ -2,7 +2,7 @@ use "../lib/describe.sml";
 use "../lib/expect.sml";
 use "../src/factorial.sml";
 
-val _ = describe "checked_factorial"
+suite(describe "checked_factorial"
 	[should("return 1 when n = 0", fn () =>
         expect (checked_factorial 0) toBeInt 1),
 
@@ -13,4 +13,4 @@ val _ = describe "checked_factorial"
         expect (checked_factorial 12) toBeInt 479001600),
 
      should("raise Overflow when n > 12", fn () =>
-        expect (fn _ => checked_factorial 100) toThrow Overflow)]
+        expect (fn _ => checked_factorial 100) toThrow Overflow)]);

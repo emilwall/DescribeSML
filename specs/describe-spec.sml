@@ -1,7 +1,7 @@
 use "../lib/describe.sml";
 use "../lib/expect.sml";
 
-val result = describe "describe"
+suite (describe "describe"
     [should("return (\"describe\", _)", fn () =>
         expect (#1(describe "sut" [("description", "pass")])) toEqualStr "Ran 1 specs for sut:\n\n.\n\nFailures: 0\n===========\n\n"),
 
@@ -24,4 +24,4 @@ val result = describe "describe"
         expect (#2(describe "sut" [])) toEqualStr "pass"),
 
     should("propagate result from passing nested describe", fn () =>
-        expect (#2(describe "sut" [(describe "sut" [])])) toEqualStr "pass")]
+        expect (#2(describe "sut" [(describe "sut" [])])) toEqualStr "pass")])

@@ -2,7 +2,8 @@ use "../lib/describe.sml";
 use "../lib/expect.sml";
 use "../src/robberlanguage.sml";
 
-val _ = describe "RobberLanguage.isConsonant"
+suite (describe "RobberLanguage" [
+describe "isConsonant"
     [should("consider b to be a consonant", fn () =>
         expect (RobberLanguage.isConsonant #"b") toBe true),
 
@@ -10,9 +11,9 @@ val _ = describe "RobberLanguage.isConsonant"
         expect (RobberLanguage.isConsonant #"B") toBe true),
 
      should("not consider a to be a consonant", fn () =>
-        expect (RobberLanguage.isConsonant #"a") toBe false)]
+        expect (RobberLanguage.isConsonant #"a") toBe false)],
 
-val _ = describe "RobberLanguage.translate"
+describe "RobberLanguage.translate"
     [should("repeat consonant with the letter o inserted in between", fn () =>
         expect (RobberLanguage.translate "s") toEqualStr "sos"),
 
@@ -24,3 +25,4 @@ val _ = describe "RobberLanguage.translate"
 
      should("repeat capital consonants as lower case", fn () =>
         expect (RobberLanguage.translate "Astrid Lindgren") toEqualStr "Asostotroridod Lolinondodgogrorenon")]
+])
