@@ -6,7 +6,7 @@ fun describe sut specs =
         val resultReport = map (report "concise") specs
         val failureReport = map (report "verbose") failures
     in
-        print (concat ["Ran ",
+        (print (concat ["Ran ",
             Int.toString (length specs),
             " specs for ",
             sut,
@@ -17,7 +17,8 @@ fun describe sut specs =
                 else ["\n"]),
             "\nFailures: ",
             Int.toString(length failures),
-            "\n===========\n\n"])
+            "\n===========\n\n"]);
+        ("", "pass"))
     end
 
 fun should(description, spec) = (description, spec())
