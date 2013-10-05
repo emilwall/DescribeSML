@@ -18,7 +18,9 @@ fun describe sut specs =
             "\nFailures: ",
             Int.toString(length failures),
             "\n===========\n\n"]);
-        ("", "pass"))
+        (sut, if length failures > 0
+                then "FAIL: a nested spec failed, see report above."
+                else "pass"))
     end
 
 fun should(description, spec) = (description, spec())
