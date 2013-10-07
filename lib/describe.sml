@@ -23,4 +23,6 @@ fun describe sut specs =
             else "pass"))
     end
 
-fun should(description, spec) = (description, spec())
+fun should(description, spec) =
+    (description, spec())
+    handle exc => (description, "FAIL: raised " ^ exnName exc)
