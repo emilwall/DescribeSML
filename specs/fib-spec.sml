@@ -7,4 +7,7 @@ suite(describe "fib"
         expect (fib 0) toBe []),
 
     should("return list with 1 when limit = 1", fn () =>
-        expect (fib 1) toBe [1])]);
+        expect (fib 1) toBe [1]),
+
+    should("return list with to ones when limit = 2", fn () =>
+        expect (fib 2) toBe [1, 1])]);
