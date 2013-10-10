@@ -2,9 +2,9 @@ Library
     structure Describe
     structure Expect
 is
-    lib/describe.sml
-    lib/spec-reporter.sml
-    lib/expect.sml
+    src/describe.sml
+    src/spec-reporter.sml
+    src/expect.sml
     $/basis.cm
     $/smlnj-lib.cm
     $/regexp-lib.cm

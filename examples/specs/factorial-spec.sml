@@ -1,4 +1,4 @@
-CM.make "../describe.cm";
+CM.make "../../describe.cm";
 open Describe;
 open Expect;
 use "../src/factorial.sml";
