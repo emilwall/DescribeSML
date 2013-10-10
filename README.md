@@ -16,11 +16,12 @@ of them that use DescribeSML. They use relative references to the .cm file and c
 exported structures, so that ```describe``` and ```should``` can be used instead of ```DescribeSML.describe```
 and ```DescribeSML.should```.
 
-DescribeSML consists of the Describe structure, which includes error reporting utilities and the
-ability to have nested describes, and the Expect structure, which contains matchers such as ```toBe```,
+DescribeSML consists of the **Describe** structure, which includes error reporting utilities and the
+ability to have nested describes, and the **Expect** structure, which contains matchers such as ```toBe```,
 ```toEqualInt```, ```toContain```, ```toMatch``` and ```toThrow```. There are no dependencies between
-the structures, so you can use them seperately, replacing one of them with your own implementation, if
-you feel like it.
+the structures except that the **Describe** functions expect matchers to return a string beginning with
+either "pass" or "FAIL". This means that you can use them seperately, replacing one of them with your
+own implementation, if you feel like it.
 
 Here is an example of how DescribeSML can be used:
 
