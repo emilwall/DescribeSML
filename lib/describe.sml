@@ -1,10 +1,12 @@
-use "../lib/spec-reporter.sml";
+structure Describe = struct
+fun suite((description, status)) =
+    print (concat ["\n", description, status, "\n\n"])
 
 fun describe sut specs =
     let
-        val failures = List.filter (fn (_, result) => isFailure result) specs
-        val resultReport = map (report "concise") specs
-        val failureReport = map (report "verbose") failures
+        val failures = List.filter (fn (_, result) => SpecReporter.isFailure result) specs
+        val resultReport = map (SpecReporter.report "concise") specs
+        val failureReport = map (SpecReporter.report "verbose") failures
     in
         (concat ["Ran ",
             Int.toString (length specs),
@@ -26,3 +28,4 @@ fun describe sut specs =
 fun should(description, spec) =
     (description, spec())
     handle exc => (description, "FAIL: raised " ^ exnName exc)
+end

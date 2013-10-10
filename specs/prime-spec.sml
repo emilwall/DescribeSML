@@ -1,5 +1,6 @@
-use "../lib/describe.sml";
-use "../lib/expect.sml";
+CM.make "../describe.cm";
+open Describe;
+open Expect;
 use "../src/prime.sml";
 
 suite(describe "Largest prime factor functions" [

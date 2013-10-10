@@ -1,5 +1,6 @@
-use "../lib/describe.sml";
-use "../lib/expect.sml";
+CM.make "../describe.cm";
+open Describe;
+open Expect;
 
 suite (describe "describe"
     [should("return (\"describe\", _)", fn () =>

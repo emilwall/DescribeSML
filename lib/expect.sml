@@ -1,6 +1,4 @@
-CM.make "$/regexp-lib.cm"; (* Used for toMatch *)
-Control.polyEqWarn := false; (* Suppress polyEqual warnings as using polymorphic equality is intentional *)
-
+structure Expect = struct
 fun expect it f = f(it)
 
 local
@@ -78,9 +76,7 @@ in
     fun toEndWith result = checkListWith "end with" result
 
     fun toNotEndWith result = checkListWith "not end with" result
-end;
-
-Control.polyEqWarn := true; (* Re-enable polyEqual warnings as there should be no more polymorphic equality after this point *)
+end
 
 local
     structure RE = RegExpFn (
@@ -99,3 +95,4 @@ fun toThrow callback exc1 =
         "pass"
     else
         "FAIL: raised " ^ (exnName exc2) ^ " with message \"" ^ (exnMessage exc2) ^ "\" instead of " ^ (exnName exc1) ^ " with message \"" ^ (exnMessage exc1) ^ "\""
+end
