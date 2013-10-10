@@ -14,7 +14,7 @@ describe "isConsonant"
      should("not consider a to be a consonant", fn () =>
         expect (RobberLanguage.isConsonant #"a") toBe false)],
 
-describe "RobberLanguage.translate"
+describe "translate"
     [should("repeat consonant with the letter o inserted in between", fn () =>
         expect (RobberLanguage.translate "s") toEqualStr "sos"),
 
