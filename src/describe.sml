@@ -12,7 +12,7 @@ fun describe sut specs =
     in
         (concat ["Ran ",
             Int.toString (length specs),
-            (if nestedLength > length specs
+            (if List.exists (fn (_, _, n) => n <> 1) specs
                 then concat [" nested describes (total ",
                              Int.toString nestedLength,
                              " specs) for "]
