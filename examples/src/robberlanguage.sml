@@ -1,7 +1,7 @@
 structure RobberLanguage :>
 sig
-   val isConsonant : char -> bool
-   val translate : string -> string
+    val isConsonant : char -> bool
+    val translate : string -> string
 end =
 struct
     val consonants = explode "cdfghjklmnpqrstvwxz"

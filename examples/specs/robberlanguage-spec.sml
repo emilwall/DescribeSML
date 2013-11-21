@@ -16,14 +16,18 @@ describe "isConsonant"
 
 describe "translate"
     [should("repeat consonant with the letter o inserted in between", fn () =>
-        expect (RobberLanguage.translate "s") toEqualStr "sos"),
+        expect (RobberLanguage.translate "s")
+            toEqualStr "sos"),
 
      should("not repeat vowels", fn () =>
-        expect (RobberLanguage.translate "a") toEqualStr "a"),
+        expect ((size o RobberLanguage.translate) "a")
+            toBeInt 1),
 
      should("work for long strings", fn () =>
-        expect (RobberLanguage.translate "a long string") toEqualStr "a lolonongog sostotrorinongog"),
+        expect (RobberLanguage.translate "a long string")
+            toEqualStr "a lolonongog sostotrorinongog"),
 
      should("repeat capital consonants as lower case", fn () =>
-        expect (RobberLanguage.translate "Astrid Lindgren") toEqualStr "Asostotroridod Lolinondodgogrorenon")]
+        expect (RobberLanguage.translate "Astrid Lindgren")
+            toEqualStr "Asostotroridod Lolinondodgogrorenon")]
 ])
