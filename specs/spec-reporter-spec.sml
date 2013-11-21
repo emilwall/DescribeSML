@@ -24,7 +24,13 @@ describe "report"
         expect (report "verbose" ("Ran description", "FAIL", 1))
             toEqualStr "Ran description: FAIL\n"),
 
-    should("omit \":\" when result is longer than 4 characters", fn () =>
+    should("omit \":\" when description begins with \"Ran \" " ^
+           "and result is longer than 4 characters", fn () =>
+        expect (report "verbose" ("Ran description\n", "FAIL: reason", 1))
+            toEqualStr "Ran description\nFAIL: reason\n"),
+
+    should("not omit \":\" " ^
+           "when description doesn't begin with \"Ran \" ", fn () =>
         expect (report "verbose" ("results", "FAIL: reason", 1))
-            toEqualStr "should resultsFAIL: reason\n")]
+            toEqualStr "should results: FAIL: reason\n")]
 ])
