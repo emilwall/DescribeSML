@@ -1,4 +1,5 @@
 CM.make "../describe.cm";
+CM.make "$/regexp-lib.cm";
 open Describe;
 open Expect;
 
@@ -146,7 +147,19 @@ describe "toMatch"
         expect (toMatch "aaa" "^a*$") toEqualStr "pass"),
 
      should("match numbers with interval", fn () =>
-        expect (toMatch "123" "^[0-9]*$") toEqualStr "pass")],
+        expect (toMatch "123" "^[0-9]*$") toEqualStr "pass"),
+
+    should("fail instead of throwing CannotParse", fn () =>
+        expect (fn _ => toNotMatch "$" "")
+            toNotThrow RegExpSyntax.CannotParse)],
+
+describe "toNotMatch"
+    [should("fail when strings match", fn () =>
+        expect (toNotMatch "" "$") toNotEqualStr "pass"),
+
+    should("pass instead of throwing CannotParse", fn () =>
+        expect (fn _ => toNotMatch "$" "")
+            toNotThrow RegExpSyntax.CannotParse)],
 
 describe "toThrow"
     [should("fail when no exception is thrown", fn () =>

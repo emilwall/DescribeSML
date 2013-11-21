@@ -108,10 +108,19 @@ struct
         structure E = BackTrackEngine)
 
     fun toMatch result value =
-        case StringCvt.scanString (RE.find (RE.compileString value)) result of
-            NONE => concat ["FAIL: expected \"", result,
-                            "\" to match \"", value, "\""]
-          | _ => "pass"
+        let
+            val (success, match) =
+                (true, StringCvt.scanString (RE.find (RE.compileString value)))
+            handle RegExpSyntax.CannotParse =>
+                (false, StringCvt.scanString (RE.find (RE.compileString "$")))
+        in
+            if success
+            then case match result of
+                    NONE => concat ["FAIL: expected \"", result,
+                                    "\" to match \"", value, "\""]
+                  | _ => "pass"
+            else "FAIL: raised CannotParse"
+        end
 
     fun toNotMatch result value =
         case toMatch result value of
