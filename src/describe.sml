@@ -23,7 +23,9 @@ fun describe sut specs =
             concat (if length failures > 0
                 then "\n\n" :: failureReport
                 else ["\n"]),
-            "\nFailures: ",
+            "\nFailures (",
+            sut,
+            "): ",
             Int.toString(length failures),
             "\n===========\n\n"],
         (if length failures > 0

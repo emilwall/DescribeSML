@@ -99,7 +99,7 @@ Ran 3 specs for isConsonant:
 should consider b to be a consonant: FAIL
 should consider B to be a consonant: FAIL
 
-Failures: 2
+Failures (isConsonant): 2
 ===========
 
 FAIL: a nested spec failed, see report above.
@@ -111,12 +111,12 @@ should repeat consonant with the letter o inserted in between: FAIL: expected "s
 should work for long strings: FAIL: expected "a loLonoNgoG soStoTroRinoNgoG" to equal "a lolonongog sostotrorinongog"
 should repeat capital consonants as lower case: FAIL: expected "AsoStoTroRidoD LoLinoNdoDgoGroRenoN" to equal "Asostotroridod Lolinondodgogrorenon"
 
-Failures: 3
+Failures (translate): 3
 ===========
 
 FAIL: a nested spec failed, see report above.
 
-Failures: 2
+Failures (RobberLanguage): 2
 ===========
 
 FAIL: a nested spec failed, see report above.

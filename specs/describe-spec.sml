@@ -7,7 +7,7 @@ describe "describe function"
     [should("return (\"describe\", _, _)", fn () =>
         expect (#1(describe "sut" [("desc", "pass", 1)]))
             toEqualStr (concat ["Ran 1 specs for sut:\n\n.",
-                                "\n\nFailures: 0\n===========\n\n"])),
+                                "\n\nFailures (sut): 0\n===========\n\n"])),
 
     should("return (_, \"pass\", _) when single spec passes", fn () =>
         expect (#2(describe "sut" [("desc", "pass", 1)]))
@@ -78,7 +78,12 @@ describe "describe function"
         expect (#1(describe "sut" [describe "sut2" [("","pass",1),
                                                     ("","pass",1)],
                                    describe "sut3" []]))
-            toMatch "(total 2 specs)")],
+            toMatch "(total 2 specs)"),
+
+    should("specify name of sut when displaying number of failures", fn () =>
+        expect (#1(describe "sut" [("desc", "FAIL", 1),
+                                   ("desc", "pass", 1)]))
+            toMatch "Failures \\(sut\\): 1")],
 
 describe "should"
     [should("return description at first position", fn () =>
