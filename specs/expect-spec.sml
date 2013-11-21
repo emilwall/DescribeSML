@@ -127,10 +127,10 @@ describe "toMatch"
      should("match anything with start of input", fn () =>
         expect (toMatch "abc" "^") toEqualStr "pass"),
 
-     should("match empty string with start immediately followed by end", fn () =>
+     should("match empty string with start followed by end", fn () =>
         expect (toMatch "" "^$") toEqualStr "pass"),
 
-     should("not match non-empty string with start immediately followed by end", fn () =>
+     should("not match non-empty string with start followed by end", fn () =>
         expect (toMatch "abc" "^$") toNotEqualStr "pass"),
 
      should("match exact string", fn () =>
@@ -159,17 +159,26 @@ describe "toThrow"
         expect (toThrow (fn _ => raise Domain) Empty) toNotEqualStr "pass"),
 
      should("handle exceptions with messages", fn () =>
-        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "msg")) toEqualStr "pass"),
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "msg"))
+            toEqualStr "pass"),
 
      should("fail when exception message differs", fn () =>
-        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toNotEqualStr "pass"),
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another"))
+            toNotEqualStr "pass"),
 
-     should("put exception message in quotes in failure message", fn () =>
-        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toEqualStr "FAIL: raised Fail with message \"Fail: msg\" instead of Fail with message \"Fail: another\""),
+     should("put first exception message in quotes", fn () =>
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another"))
+            toMatch "\"Fail: msg\""),
+
+     should("put last exception message in quotes", fn () =>
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another"))
+            toMatch "\"Fail: another\""),
 
      should("match empty exception string to any other message", fn () =>
-        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "")) toEqualStr "pass"),
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail ""))
+            toEqualStr "pass"),
 
      should("not match non-empty string with empty string", fn () =>
-        expect (toThrow (fn _ => raise (Fail "")) (Fail "msg")) toMatch "FAIL")]
+        expect (toThrow (fn _ => raise (Fail "")) (Fail "msg"))
+            toMatch "FAIL")]
 ])
