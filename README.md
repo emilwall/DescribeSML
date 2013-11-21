@@ -66,22 +66,19 @@ struct
         let
             val consonants = explode "cdfghjklmnpqrstvwxz"
         in
-            List.exists (fn c' => c = c' orelse (Char.toLower c) = c') consonants
+            List.exists (fn c' => c = c' orelse Char.toLower c = c') consonants
         end
 
-    fun translate s =
-    let
-        fun process [] acc =
-            rev acc
-          | process (c::cs) acc =
-            process cs (if isConsonant c then
-                            (Char.toUpper c) :: #"o" :: c :: acc
-                        else
-                            c :: acc)
-
-    in
-        implode(process (explode s) [])
-    end
+    val translate =
+        let
+            fun process [] = []
+              | process (c::cs) =
+                if isConsonant c
+                then (Char.toUpper c) :: #"o" :: c :: process cs
+                else c :: process cs
+        in
+            implode o process o explode
+        end
 end
 ```
 
@@ -103,9 +100,9 @@ Ran 4 specs for translate:
 
 !.!!
 
-should repeat consonant with the letter o inserted in between: FAIL: expected "soS" to equal "sos"
-should work for long strings: FAIL: expected "a loLonoNgoG soStoTroRinoNgoG" to equal "a lolonongog sostotrorinongog"
-should repeat capital consonants as lower case: FAIL: expected "AsoStoTroRidoD LoLinoNdoDgoGroRenoN" to equal "Asostotroridod Lolinondodgogrorenon"
+should repeat consonant with the letter o inserted in between: FAIL: expected "Sos" to equal "sos"
+should work for long strings: FAIL: expected "a LoloNonGog SosTotRoriNonGog" to equal "a lolonongog sostotrorinongog"
+should repeat capital consonants as lower case: FAIL: expected "ASosTotRoriDod LoLiNonDodGogRoreNon" to equal "Asostotroridod Lolinondodgogrorenon"
 
 Total failures: 5
 =================
@@ -121,7 +118,7 @@ val consonants = explode "bcdfghjklmnpqrstvwxz"
 ```
 
 ```SML
-(Char.toLower c) :: #"o" :: c :: acc
+then c :: #"o" :: (Char.toLower c) :: process cs
 ```
 
 yields
