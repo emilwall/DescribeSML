@@ -102,7 +102,7 @@ should consider B to be a consonant: FAIL
 Failures: 2
 ===========
 
-: FAIL: a nested spec failed, see report above.
+FAIL: a nested spec failed, see report above.
 Ran 4 specs for translate:
 
 !.!!
@@ -114,7 +114,7 @@ should repeat capital consonants as lower case: FAIL: expected "AsoStoTroRidoD L
 Failures: 3
 ===========
 
-: FAIL: a nested spec failed, see report above.
+FAIL: a nested spec failed, see report above.
 
 Failures: 2
 ===========
