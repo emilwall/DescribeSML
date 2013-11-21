@@ -1,10 +1,39 @@
-structure Expect = struct
-fun expect it f = f(it)
+structure Expect :>
+sig
+    val expect : 'a -> ('a -> 'b) -> 'b
 
-local
+    val toEqual    : ''a -> ''a -> string
+    val toNotEqual : ''a -> ''a -> string
+    val toBe       : ''a -> ''a -> string
+    val toNotBe    : ''a -> ''a -> string
+
+    val toEqualStr    : string -> string -> string
+    val toNotEqualStr : string -> string -> string
+    val toBeStr       : string -> string -> string
+    val toNotBeStr    : string -> string -> string
+
+    val toEqualInt    : int -> int -> string
+    val toNotEqualInt : int -> int -> string
+    val toBeInt       : int -> int -> string
+    val toNotBeInt    : int -> int -> string
+
+    val toContain      : ''a list -> ''a -> string
+    val toNotContain   : ''a list -> ''a -> string
+    val toBeginWith    : ''a list -> ''a -> string
+    val toNotBeginWith : ''a list -> ''a -> string
+    val toEndWith      : ''a list -> ''a -> string
+    val toNotEndWith   : ''a list -> ''a -> string
+
+    val toMatch : string -> string -> string
+
+    val toThrow : (unit -> 'a) -> exn -> string
+end =
+struct
+    fun expect it f = f(it)
+
     fun checkWith operator value result =
         if operator(value, result) then "pass" else "FAIL"
-in
+
     fun toEqual value = checkWith (op =) value
 
     fun toNotEqual value = checkWith (op <>) value
@@ -12,15 +41,13 @@ in
     val toBe = toEqual
 
     val toNotBe = toNotEqual
-end
 
-local
     fun checkStrWith operator relation result value =
         if operator(value, result)
         then "pass"
         else concat ["FAIL: expected \"", result,
                      "\" to ", relation, " \"", value, "\""]
-in
+
     fun toEqualStr result = checkStrWith (op =) "equal" result
 
     fun toNotEqualStr result = checkStrWith (op <>) "NOT equal" result
@@ -28,15 +55,13 @@ in
     val toBeStr = toEqualStr
 
     val toNotBeStr = toNotEqualStr
-end
 
-local
     fun checkIntWith operator relation result value =
         if operator(value, result)
         then "pass"
         else concat ["FAIL: expected \"", Int.toString(result),
                      "\" to ", relation, " \"", Int.toString(value), "\""]
-in
+
     fun toEqualInt result = checkIntWith (op =) "equal" result
 
     fun toNotEqualInt result = checkIntWith (op <>) "NOT equal" result
@@ -44,9 +69,7 @@ in
     val toBeInt = toEqualInt
 
     val toNotBeInt = toNotEqualInt
-end
 
-local
     fun checkListWith relation result value =
     let
         fun checkNth n = n >= 0
@@ -65,7 +88,7 @@ local
         then "pass"
         else concat ["FAIL: Expected List to ", relation, " value"]
     end
-in
+
     fun toContain result = checkListWith "contain" result
 
     fun toNotContain result = checkListWith "not contain" result
@@ -77,27 +100,24 @@ in
     fun toEndWith result = checkListWith "end with" result
 
     fun toNotEndWith result = checkListWith "not end with" result
-end
 
-local
     structure RE = RegExpFn (
         structure P = AwkSyntax
         structure E = BackTrackEngine)
-in
+
     fun toMatch result value =
         case StringCvt.scanString (RE.find (RE.compileString value)) result of
             NONE => concat ["FAIL: expected \"", result,
                             "\" to match \"", value, "\""]
           | SOME match => "pass"
-end
 
-fun toThrow callback exc1 =
-    (callback(); "FAIL: did not raise " ^ (exnName exc1))
-    handle exc2 =>
-        if String.isPrefix (exnMessage exc1) (exnMessage exc2)
-        then "pass"
-        else concat ["FAIL: raised ", (exnName exc2),
-                     " with message \"", (exnMessage exc2),
-                     "\" instead of ", (exnName exc1),
-                     " with message \"", (exnMessage exc1), "\""]
+    fun toThrow callback exc1 =
+        (callback(); "FAIL: did not raise " ^ (exnName exc1))
+        handle exc2 =>
+            if String.isPrefix (exnMessage exc1) (exnMessage exc2)
+            then "pass"
+            else concat ["FAIL: raised ", (exnName exc2),
+                         " with message \"", (exnMessage exc2),
+                         "\" instead of ", (exnName exc1),
+                         " with message \"", (exnMessage exc1), "\""]
 end (* of struct *)
