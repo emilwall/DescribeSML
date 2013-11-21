@@ -62,12 +62,12 @@ If we have this (intentionally buggy) implementation:
 ```SML
 structure RobberLanguage =
 struct
-    fun isConsonant c =
-        let
-            val consonants = explode "cdfghjklmnpqrstvwxz"
-        in
+    local
+        val consonants = explode "cdfghjklmnpqrstvwxz"
+    in
+        fun isConsonant c =
             List.exists (fn c' => c = c' orelse Char.toLower c = c') consonants
-        end
+    end
 
     val translate =
         let
