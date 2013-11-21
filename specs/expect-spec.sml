@@ -180,5 +180,31 @@ describe "toThrow"
 
      should("not match non-empty string with empty string", fn () =>
         expect (toThrow (fn _ => raise (Fail "")) (Fail "msg"))
-            toMatch "FAIL")]
+            toMatch "FAIL")],
+
+describe "toNotThrow"
+    [should("pass when no exception is thrown", fn () =>
+        expect (toNotThrow (fn _ => 0) Empty) toEqualStr "pass"),
+
+     should("fail when specified exception is thrown", fn () =>
+        expect (toNotThrow (fn _ => raise Empty) Empty) toMatch "FAIL"),
+
+     should("pass when another exception is thrown", fn () =>
+        expect (toNotThrow (fn _ => raise Domain) Empty) toEqualStr "pass"),
+
+     should("fail when exceptions have same messages", fn () =>
+        expect (toNotThrow (fn _ => raise (Fail "msg")) (Fail "msg"))
+            toNotEqualStr "pass"),
+
+     should("pass when exception message differs", fn () =>
+        expect (toNotThrow (fn _ => raise (Fail "msg")) (Fail "another"))
+            toEqualStr "pass"),
+
+     should("match empty exception string to any other message", fn () =>
+        expect (toNotThrow (fn _ => raise (Fail "msg")) (Fail ""))
+            toMatch "FAIL"),
+
+     should("not match non-empty string with empty string", fn () =>
+        expect (toNotThrow (fn _ => raise (Fail "")) (Fail "msg"))
+            toEqualStr "pass")]
 ])
