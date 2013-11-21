@@ -88,11 +88,11 @@ end
 You get the following output from running the specs:
 
 ```
-Ran 2 specs for RobberLanguage:
+Ran 2 nested describes (total 7 specs) for RobberLanguage:
 
 !!
 
-should Ran 3 specs for isConsonant:
+Ran 3 specs for isConsonant:
 
 !!.
 
@@ -103,7 +103,7 @@ Failures: 2
 ===========
 
 : FAIL: a nested spec failed, see report above.
-should Ran 4 specs for translate:
+Ran 4 specs for translate:
 
 !.!!
 
@@ -122,11 +122,10 @@ Failures: 2
 FAIL: a nested spec failed, see report above.
 ```
 
-As you can see there are some quirks that should be fixed, (e.g. ": FAIL: a nested spec failed,
-see report above. should Ran 4 specs for translate:") but the basic functionality is there,
-allowing you to get detailed error reports for nested describes, with a wide variety of matchers.
+This allows you to get detailed error reports for nested describes, with a wide
+variety of matchers.
 
 A more detailed description of how to use DescribeSML will follow.
 
-If you have any questions, feedback or requests, please post an issue here on github
-or email me at emil.wall at valtech.se
+If you have any questions, feedback or requests, please post an issue here on
+github or email me at emil.wall at valtech.se
