@@ -16,11 +16,10 @@ end
 
 local
     fun checkStrWith operator relation result value =
-        if operator(value, result) then
-            "pass"
-        else
-            concat ["FAIL: expected \"", result,
-                    "\" to ", relation, " \"", value, "\""]
+        if operator(value, result)
+        then "pass"
+        else concat ["FAIL: expected \"", result,
+                     "\" to ", relation, " \"", value, "\""]
 in
     fun toEqualStr result = checkStrWith (op =) "equal" result
 
@@ -33,11 +32,10 @@ end
 
 local
     fun checkIntWith operator relation result value =
-        if operator(value, result) then
-            "pass"
-        else
-            concat ["FAIL: expected \"", Int.toString(result),
-                    "\" to ", relation, " \"", Int.toString(value), "\""]
+        if operator(value, result)
+        then "pass"
+        else concat ["FAIL: expected \"", Int.toString(result),
+                     "\" to ", relation, " \"", Int.toString(value), "\""]
 in
     fun toEqualInt result = checkIntWith (op =) "equal" result
 
@@ -63,10 +61,9 @@ local
           | "end with" => checkNth (length result - 1)
           | "not end with" => not (checkNth (length result - 1))
     in
-        if success then
-            "pass"
-        else
-            concat ["FAIL: Expected List to ", relation, " value"]
+        if success
+        then "pass"
+        else concat ["FAIL: Expected List to ", relation, " value"]
     end
 in
     fun toContain result = checkListWith "contain" result
