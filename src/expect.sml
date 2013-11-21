@@ -94,8 +94,7 @@ end
 fun toThrow callback exc1 =
     (callback(); "FAIL: did not raise " ^ (exnName exc1))
     handle exc2 =>
-        if exnName exc2 = exnName exc1
-            andalso toMatch (exnMessage exc2) (exnMessage exc1) = "pass"
+        if String.isPrefix (exnMessage exc1) (exnMessage exc2)
         then "pass"
         else concat ["FAIL: raised ", (exnName exc2),
                      " with message \"", (exnMessage exc2),

@@ -165,5 +165,11 @@ describe "toThrow"
         expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toNotEqualStr "pass"),
 
      should("put exception message in quotes in failure message", fn () =>
-        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toEqualStr "FAIL: raised Fail with message \"Fail: msg\" instead of Fail with message \"Fail: another\"")]
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "another")) toEqualStr "FAIL: raised Fail with message \"Fail: msg\" instead of Fail with message \"Fail: another\""),
+
+     should("match empty exception string to any other message", fn () =>
+        expect (toThrow (fn _ => raise (Fail "msg")) (Fail "")) toEqualStr "pass"),
+
+     should("not match non-empty string with empty string", fn () =>
+        expect (toThrow (fn _ => raise (Fail "")) (Fail "msg")) toMatch "FAIL")]
 ])
