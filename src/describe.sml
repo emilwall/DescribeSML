@@ -28,11 +28,13 @@ fun describe sut specs =
             "): ",
             Int.toString(length failures),
             "\n===========\n\n"],
-        (if length failures = 1
-         then "FAIL: a nested spec failed, see report above."
-         else if length failures > 1
-         then "FAIL: nested specs failed, see report above."
-         else "pass"),
+        (if null failures
+         then "pass"
+         else concat ["FAIL: ",
+                      if null(tl failures)
+                      then "a nested spec"
+                      else "nested specs",
+                      " failed, see report above."]),
         nestedLength)
     end
 
