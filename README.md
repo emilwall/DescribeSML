@@ -114,7 +114,26 @@ Total failures: 5
 This allows you to get detailed error reports for nested describes, with a wide
 variety of matchers.
 
-A more detailed description of how to use DescribeSML will follow.
+Fixing the bugs in the implementation:
+
+```SML
+val consonants = explode "bcdfghjklmnpqrstvwxz"
+```
+
+```SML
+(Char.toLower c) :: #"o" :: c :: acc
+```
+
+yields
+
+```
+Ran 2 nested describes (total 7 specs) for RobberLanguage:
+
+..
+
+Total failures: 0
+=================
+```
 
 If you have any questions, feedback or requests, please post an issue here on
 github or email me at emil.wall at valtech.se
