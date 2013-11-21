@@ -24,9 +24,11 @@ sig
     val toEndWith      : ''a list -> ''a -> string
     val toNotEndWith   : ''a list -> ''a -> string
 
-    val toMatch : string -> string -> string
+    val toMatch    : string -> string -> string
+    val toNotMatch : string -> string -> string
 
-    val toThrow : (unit -> 'a) -> exn -> string
+    val toThrow    : (unit -> 'a) -> exn -> string
+    val toNotThrow : (unit -> 'a) -> exn -> string
 end =
 struct
     fun expect it f = f(it)
@@ -109,15 +111,28 @@ struct
         case StringCvt.scanString (RE.find (RE.compileString value)) result of
             NONE => concat ["FAIL: expected \"", result,
                             "\" to match \"", value, "\""]
-          | SOME match => "pass"
+          | _ => "pass"
+
+    fun toNotMatch result value =
+        case toMatch result value of
+            "pass" => concat ["FAIL: expected \"", result,
+                              "\" not to match \"", value, "\""]
+          | _ => "pass"
 
     fun toThrow callback exc1 =
         (callback(); "FAIL: did not raise " ^ (exnName exc1))
         handle exc2 =>
             if String.isPrefix (exnMessage exc1) (exnMessage exc2)
             then "pass"
-            else concat ["FAIL: raised ", (exnName exc2),
-                         " with message \"", (exnMessage exc2),
-                         "\" instead of ", (exnName exc1),
-                         " with message \"", (exnMessage exc1), "\""]
+            else concat ["FAIL: raised ", exnName exc2,
+                         " with message \"", exnMessage exc2,
+                         "\" instead of ", exnName exc1,
+                         " with message \"", exnMessage exc1, "\""]
+
+    fun toNotThrow callback exc1 =
+        (callback(); "pass")
+        handle exc2 =>
+            if String.isPrefix (exnMessage exc1) (exnMessage exc2)
+            then concat ["FAIL: raised ", exnMessage exc2]
+            else "pass"
 end (* of struct *)
