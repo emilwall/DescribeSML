@@ -4,7 +4,7 @@ fun isFailure result =
 
 fun report "verbose" (description, result, _) =
     concat [if String.isPrefix "Ran " description then "" else "should ",
-            description, ": ", result, "\n"]
+            description, if size result > 4 then "" else ": ", result, "\n"]
   | report _ (_, result, _) =
     if isFailure result then "!" else "."
 end
