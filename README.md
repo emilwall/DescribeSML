@@ -60,25 +60,24 @@ suite (describe "RobberLanguage" [
 If we have this (intentionally buggy) implementation:
 
 ```SML
-structure RobberLanguage =
+structure RobberLanguage :>
+sig
+   val isConsonant : char -> bool
+   val translate : string -> string
+end =
 struct
-    local
-        val consonants = explode "cdfghjklmnpqrstvwxz"
-    in
-        fun isConsonant c =
-            List.exists (fn c' => c = c' orelse Char.toLower c = c') consonants
-    end
+    val consonants = explode "cdfghjklmnpqrstvwxz"
 
-    val translate =
-        let
-            fun process [] = []
-              | process (c::cs) =
-                if isConsonant c
-                then (Char.toUpper c) :: #"o" :: c :: process cs
-                else c :: process cs
-        in
-            implode o process o explode
-        end
+    fun isConsonant c =
+        List.exists (fn c' => c = c' orelse Char.toLower c = c') consonants
+
+    fun process [] = []
+      | process (c::cs) =
+        if isConsonant c
+        then (Char.toUpper c) :: #"o" :: c :: process cs
+        else c :: process cs
+
+    val translate = implode o process o explode
 end
 ```
 
