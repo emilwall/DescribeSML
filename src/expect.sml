@@ -97,8 +97,8 @@ fun toThrow callback exc1 =
         if exnName exc2 = exnName exc1
             andalso toMatch (exnMessage exc2) (exnMessage exc1) = "pass"
         then "pass"
-        else ("FAIL: raised " ^ (exnName exc2) ^
-            " with message \"" ^ (exnMessage exc2) ^
-            "\" instead of " ^ (exnName exc1) ^
-            " with message \"" ^ (exnMessage exc1) ^ "\"")
+        else concat ["FAIL: raised ", (exnName exc2),
+                     " with message \"", (exnMessage exc2),
+                     "\" instead of ", (exnName exc1),
+                     " with message \"", (exnMessage exc1), "\""]
 end (* of struct *)
