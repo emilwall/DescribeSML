@@ -23,11 +23,11 @@ describe "describe function"
                                    ("another", "pass", 1)]))
             toEqualStr "pass"),
 
-    should("return (_, \"FAIL: a nested spec failed, see report above.\", _) " ^
-           "when all specs fail", fn () =>
+    should("return (_, \"FAIL: nested specs failed, see report above.\", _) " ^
+           "when multiple specs fail", fn () =>
         expect (#2(describe "sut" [("desc", "FAIL", 1),
                                    ("another", "FAIL", 1)]))
-            toEqualStr "FAIL: a nested spec failed, see report above."),
+            toEqualStr "FAIL: nested specs failed, see report above."),
 
     should("return (_, \"FAIL: a nested spec failed, see report above.\", _) " ^
            "when one of many specs fail", fn () =>

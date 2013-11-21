@@ -102,7 +102,7 @@ should consider B to be a consonant: FAIL
 Failures (isConsonant): 2
 ===========
 
-FAIL: a nested spec failed, see report above.
+FAIL: nested specs failed, see report above.
 Ran 4 specs for translate:
 
 !.!!
@@ -114,12 +114,12 @@ should repeat capital consonants as lower case: FAIL: expected "AsoStoTroRidoD L
 Failures (translate): 3
 ===========
 
-FAIL: a nested spec failed, see report above.
+FAIL: nested specs failed, see report above.
 
 Failures (RobberLanguage): 2
 ===========
 
-FAIL: a nested spec failed, see report above.
+FAIL: nested specs failed, see report above.
 ```
 
 This allows you to get detailed error reports for nested describes, with a wide
