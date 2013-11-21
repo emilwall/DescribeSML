@@ -2,7 +2,8 @@ CM.make "../describe.cm";
 open Describe;
 open Expect;
 
-suite (describe "describe"
+suite (describe "describe" [
+describe "describe function"
     [should("return (\"describe\", _)", fn () =>
         expect (#1(describe "sut" [("desc", "pass")]))
             toEqualStr (concat ["Ran 1 specs for sut:\n\n.",
@@ -37,4 +38,14 @@ suite (describe "describe"
         expect (#2(describe "sut" [])) toEqualStr "pass"),
 
     should("propagate result from passing nested describe", fn () =>
-        expect (#2(describe "sut" [(describe "sut" [])])) toEqualStr "pass")])
+        expect (#2(describe "sut" [(describe "sut" [])])) toEqualStr "pass")],
+
+describe "should"
+    [should("return description at first position", fn () =>
+        expect (#1(should("description", fn _ => "pass")))
+            toEqualStr "description"),
+
+    should("return result at second position", fn () =>
+        expect (#2(should("description", fn _ => "pass")))
+            toEqualStr "pass")]
+])
