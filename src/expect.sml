@@ -19,7 +19,8 @@ local
         if operator(value, result) then
             "pass"
         else
-            concat ["FAIL: expected \"", result, "\" to ", relation, " \"", value, "\""]
+            concat ["FAIL: expected \"", result,
+                    "\" to ", relation, " \"", value, "\""]
 in
     fun toEqualStr result = checkStrWith (op =) "equal" result
 
@@ -35,7 +36,8 @@ local
         if operator(value, result) then
             "pass"
         else
-            concat ["FAIL: expected \"", Int.toString(result), "\" to ", relation, " \"", Int.toString(value), "\""]
+            concat ["FAIL: expected \"", Int.toString(result),
+                    "\" to ", relation, " \"", Int.toString(value), "\""]
 in
     fun toEqualInt result = checkIntWith (op =) "equal" result
 
@@ -49,7 +51,9 @@ end
 local
     fun checkListWith relation result value =
     let
-        fun checkNth n = n >= 0 andalso length result > n andalso List.nth(result, n) = value
+        fun checkNth n = n >= 0
+                         andalso length result > n
+                         andalso List.nth(result, n) = value
         val containsValue = List.exists (fn a => a = value) result
         val success = case relation of
             "contain" => containsValue
@@ -85,7 +89,8 @@ local
 in
     fun toMatch result value =
         case StringCvt.scanString (RE.find (RE.compileString value)) result of
-            NONE => concat ["FAIL: expected \"", result, "\" to match \"", value, "\""]
+            NONE => concat ["FAIL: expected \"", result,
+                            "\" to match \"", value, "\""]
           | SOME match => "pass"
 end
 

@@ -4,7 +4,8 @@ fun suite((description, status)) =
 
 fun describe sut specs =
     let
-        val failures = List.filter (fn (_, result) => SpecReporter.isFailure result) specs
+        val failures =
+            List.filter (fn (_, result) => SpecReporter.isFailure result) specs
         val resultReport = map (SpecReporter.report "concise") specs
         val failureReport = map (SpecReporter.report "verbose") failures
     in
