@@ -1,18 +1,19 @@
 structure Describe = struct
-fun suite((description, status, _)) =
-    print (concat ["\n", description, status, "\n\n"])
+fun suite((description, status, specs, failures)) =
+    print (concat ["\n", description, status, "Total failures: ",
+                   Int.toString failures, "\n=================",
+                   if failures >= 10 then "=" else "", "\n\n"])
 
 fun describe sut specs =
     let
-        val failures =
-            List.filter (fn (_, result, _) => SpecReporter.isFailure result) specs
+        val failures = List.filter (fn (_, _, _, n) => n > 0) specs
         val resultReport = map (SpecReporter.report "concise") specs
         val failureReport = map (SpecReporter.report "verbose") failures
-        val nestedLength = foldr (fn ((_, _, n), acc) => acc + n) 0 specs
+        val nestedLength = foldr (fn ((_, _, n, _), acc) => acc + n) 0 specs
     in
         (concat ["Ran ",
             Int.toString (length specs),
-            (if List.exists (fn (_, _, n) => n <> 1) specs
+            (if List.exists (fn (_, _, n, _) => n <> 1) specs
                 then concat [" nested describes (total ",
                              Int.toString nestedLength,
                              " specs) for "]
@@ -20,25 +21,21 @@ fun describe sut specs =
             sut,
             ":\n\n",
             concat resultReport,
-            concat (if length failures > 0
-                then "\n\n" :: failureReport
-                else ["\n"]),
-            "\nFailures (",
-            sut,
-            "): ",
-            Int.toString(length failures),
-            "\n===========\n\n"],
-        (if null failures
-         then "pass"
-         else concat ["FAIL: ",
-                      if null(tl failures)
-                      then "a nested spec"
-                      else "nested specs",
-                      " failed, see report above."]),
-        nestedLength)
+            "\n\n",
+            if length failures > 0
+            then concat failureReport
+            else ""
+            ],
+        "",
+        nestedLength,
+        foldl (fn ((_, _, _, n), acc) => acc + n) 0 failures)
     end
 
 fun should(description, spec) =
-    (description, spec(), 1)
-    handle exc => (description, "FAIL: raised " ^ exnName exc, 1)
+    let
+        val result = spec()
+    in
+        (description, result, 1, if SpecReporter.isFailure result then 1 else 0)
+    end
+    handle exc => (description, "FAIL: raised " ^ exnName exc, 1, 1)
 end

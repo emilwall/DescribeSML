@@ -99,10 +99,6 @@ Ran 3 specs for isConsonant:
 should consider b to be a consonant: FAIL
 should consider B to be a consonant: FAIL
 
-Failures (isConsonant): 2
-===========
-
-FAIL: nested specs failed, see report above.
 Ran 4 specs for translate:
 
 !.!!
@@ -111,15 +107,8 @@ should repeat consonant with the letter o inserted in between: FAIL: expected "s
 should work for long strings: FAIL: expected "a loLonoNgoG soStoTroRinoNgoG" to equal "a lolonongog sostotrorinongog"
 should repeat capital consonants as lower case: FAIL: expected "AsoStoTroRidoD LoLinoNdoDgoGroRenoN" to equal "Asostotroridod Lolinondodgogrorenon"
 
-Failures (translate): 3
-===========
-
-FAIL: nested specs failed, see report above.
-
-Failures (RobberLanguage): 2
-===========
-
-FAIL: nested specs failed, see report above.
+Total failures: 5
+=================
 ```
 
 This allows you to get detailed error reports for nested describes, with a wide
