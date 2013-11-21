@@ -1,6 +1,6 @@
 structure SpecReporter = struct
 fun isFailure result =
-	String.substring(result, 0, 4) = "FAIL"
+    String.substring(result, 0, 4) = "FAIL"
 
 fun report "verbose" (description, result) =
     concat ["should ", description, ": ", result, "\n"]

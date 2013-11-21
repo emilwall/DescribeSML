@@ -91,8 +91,12 @@ end
 
 fun toThrow callback exc1 =
     (callback(); "FAIL: did not raise " ^ (exnName exc1))
-    handle exc2 => if exnName exc2 = exnName exc1 andalso exnMessage exc2 = exnMessage exc1 then
-        "pass"
-    else
-        "FAIL: raised " ^ (exnName exc2) ^ " with message \"" ^ (exnMessage exc2) ^ "\" instead of " ^ (exnName exc1) ^ " with message \"" ^ (exnMessage exc1) ^ "\""
-end
+    handle exc2 =>
+        if exnName exc2 = exnName exc1
+            andalso toMatch (exnMessage exc2) (exnMessage exc1) = "pass"
+        then "pass"
+        else ("FAIL: raised " ^ (exnName exc2) ^
+            " with message \"" ^ (exnMessage exc2) ^
+            "\" instead of " ^ (exnName exc1) ^
+            " with message \"" ^ (exnMessage exc1) ^ "\"")
+end (* of struct *)
