@@ -4,11 +4,11 @@ open Describe;
 open Expect;
 
 (* Define system under test *)
-fun hello you = "Hello " ^ you ^ "!";
+fun hello you = concat ["Hello ", you, "!"];
 
 (* State expectations *)
 suite (describe "hello" [
-    should ("return Hello World! when given World as argument", fn () =>
+    should ("say Hello World! when given World as argument", fn () =>
         expect (hello "World")
             toEqualStr "Hello World!"),
 
