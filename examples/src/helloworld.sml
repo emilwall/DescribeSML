@@ -1,11 +1,7 @@
 (* Import DescribeSML *)
-CM.autoload "../../describe.cm";
-val suite = Describe.suite;
-val describe = Describe.describe; 
-val should = Describe.should;
-val expect = Expect.expect;
-val toEqualStr = Expect.toEqualStr;
-val toMatch = Expect.toMatch;
+CM.make "../../describe.cm";
+open Describe;
+open Expect;
 
 (* Define system under test *)
 fun hello you = "Hello " ^ you ^ "!";
