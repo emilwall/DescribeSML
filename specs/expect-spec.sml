@@ -279,7 +279,11 @@ describe "toThrow"
 
      should("not match non-empty string with empty string", fn () =>
         expect (toThrow (fn _ => raise (Fail "")) (Fail "msg"))
-            toMatch "FAIL")],
+            toMatch "FAIL"),
+
+     should("match empty message strings", fn () =>
+        expect (toThrow (fn _ => raise (Fail "")) (Fail ""))
+            toEqualStr "pass")],
 
 describe "toNotThrow"
     [should("pass when no exception is thrown", fn () =>
