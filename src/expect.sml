@@ -19,12 +19,14 @@ sig
     val toBeInt       : int -> int -> string
     val toNotBeInt    : int -> int -> string
 
-    val toContain      : ''a list -> ''a -> string
-    val toNotContain   : ''a list -> ''a -> string
-    val toBeginWith    : ''a list -> ''a -> string
-    val toNotBeginWith : ''a list -> ''a -> string
-    val toEndWith      : ''a list -> ''a -> string
-    val toNotEndWith   : ''a list -> ''a -> string
+    val toContain       : ''a list -> ''a -> string
+    val toNotContain    : ''a list -> ''a -> string
+    val toBeginWith     : ''a list -> ''a -> string
+    val toNotBeginWith  : ''a list -> ''a -> string
+    val toEndWith       : ''a list -> ''a -> string
+    val toNotEndWith    : ''a list -> ''a -> string
+    val toHaveLength    : ''a list -> int -> string
+    val toNotHaveLength : ''a list -> int -> string
 
     val toMatch    : string -> string -> string
     val toNotMatch : string -> string -> string
@@ -116,6 +118,22 @@ struct
     fun toEndWith result = checkListWith "end with" result
 
     fun toNotEndWith result = checkListWith "not end with" result
+
+    fun toHaveLength result = checkListWith "have length" result
+
+    fun toNotHaveLength result = checkListWith "not have length" result
+
+    fun toHaveLength result value =
+        if length result = value
+        then "pass"
+        else concat ["FAIL: expected list to have length ",
+                     Int.toString(value)]
+
+    fun toNotHaveLength result value =
+        if length result <> value
+        then "pass"
+        else concat ["FAIL: expected list to not have length ",
+                     Int.toString(value)]
 
     structure RE = RegExpFn (
         structure P = AwkSyntax

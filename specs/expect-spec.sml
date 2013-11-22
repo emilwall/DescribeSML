@@ -27,6 +27,29 @@ describe "toNotHaveSize"
      should("fail for non-empty string with other size than given", fn () =>
         expect (toNotHaveSize "abc" 2) toEqualStr "pass")],
 
+describe "toHaveLength"
+    [should("pass for empty list and length 0", fn () =>
+        expect (toHaveLength [] 0) toEqualStr "pass"),
+
+     should("fail for empty list and length not 0", fn () =>
+        expect (toHaveLength [] 2) toNotEqualStr "pass"),
+
+     should("pass for non-empty list with specified length", fn () =>
+        expect (toHaveLength [1, 2] 2) toEqualStr "pass")],
+
+describe "toNotHaveLength"
+    [should("fail for empty list and length 0", fn () =>
+        expect (toNotHaveLength [] 0) toNotEqualStr "pass"),
+
+     should("pass for empty list and length not 0", fn () =>
+        expect (toNotHaveLength [] 2) toEqualStr "pass"),
+
+     should("fail for non-empty list with specified length", fn () =>
+        expect (toNotHaveLength [1, 2] 2) toNotEqualStr "pass"),
+
+     should("fail for non-empty list with other length than given", fn () =>
+        expect (toNotHaveLength [1, 2, 3] 2) toEqualStr "pass")],
+
 describe "toContain"
     [should("fail for empty list", fn () =>
         expect (toContain [] 0) toNotEqualStr "pass"),
