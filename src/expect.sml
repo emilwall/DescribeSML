@@ -40,7 +40,7 @@ struct
     fun expect it f = f(it)
 
     fun checkWith operator value result =
-        if operator(value, result) then "pass" else "FAIL"
+        if operator(result, value) then "pass" else "FAIL"
 
     fun toEqual value = checkWith (op =) value
 
@@ -51,14 +51,14 @@ struct
     val toNotBe = toNotEqual
 
     fun checkStrWith operator relation result value =
-        if operator(value, result)
+        if operator(result, value)
         then "pass"
         else concat ["FAIL: expected \"", result,
                      "\" to ", relation, " \"", value, "\""]
 
-    fun toEqualStr result = checkStrWith (op =) "equal" result
+    val toEqualStr = checkStrWith (op =) "equal"
 
-    fun toNotEqualStr result = checkStrWith (op <>) "NOT equal" result
+    val toNotEqualStr = checkStrWith (op <>) "NOT equal"
 
     val toBeStr = toEqualStr
 
@@ -82,17 +82,17 @@ struct
         else concat ["FAIL: expected \"", Int.toString(result),
                      "\" to ", relation, " \"", Int.toString(value), "\""]
 
-    fun toEqualInt result = checkIntWith (op =) "equal" result
+    val toEqualInt = checkIntWith (op =) "equal"
 
-    fun toNotEqualInt result = checkIntWith (op <>) "NOT equal" result
+    val toNotEqualInt = checkIntWith (op <>) "NOT equal"
 
     val toBeInt = toEqualInt
 
     val toNotBeInt = toNotEqualInt
 
-    fun toBeGreaterThan result = checkIntWith (op >) "greater than" result
+    val toBeGreaterThan = checkIntWith (op >) "greater than"
 
-    fun toBeLessThan result = checkIntWith (op <) "less than" result
+    val toBeLessThan = checkIntWith (op <) "less than"
 
     fun checkListWith relation result value =
     let
