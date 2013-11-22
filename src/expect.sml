@@ -11,6 +11,8 @@ sig
     val toNotEqualStr : string -> string -> string
     val toBeStr       : string -> string -> string
     val toNotBeStr    : string -> string -> string
+    val toHaveSize    : string -> int -> string
+    val toNotHaveSize : string -> int -> string
 
     val toEqualInt    : int -> int -> string
     val toNotEqualInt : int -> int -> string
@@ -57,6 +59,18 @@ struct
     val toBeStr = toEqualStr
 
     val toNotBeStr = toNotEqualStr
+
+    fun toHaveSize result value =
+        if size result = value
+        then "pass"
+        else concat ["FAIL: expected \"", result,
+                     "\" to have size ", Int.toString(value)]
+
+    fun toNotHaveSize result value =
+        if size result <> value
+        then "pass"
+        else concat ["FAIL: expected \"", result,
+                     "\" to not have size ", Int.toString(value)]
 
     fun checkIntWith operator relation result value =
         if operator(value, result)

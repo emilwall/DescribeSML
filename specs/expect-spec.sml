@@ -4,6 +4,29 @@ open Describe;
 open Expect;
 
 suite (describe "matchers" [
+describe "toHaveSize"
+    [should("pass for empty string and size 0", fn () =>
+        expect (toHaveSize "" 0) toEqualStr "pass"),
+
+     should("fail for empty string and size not 0", fn () =>
+        expect (toHaveSize "" 2) toNotEqualStr "pass"),
+
+     should("pass for non-empty string with specified size", fn () =>
+        expect (toHaveSize "ab" 2) toEqualStr "pass")],
+
+describe "toNotHaveSize"
+    [should("fail for empty string and size 0", fn () =>
+        expect (toNotHaveSize "" 0) toNotEqualStr "pass"),
+
+     should("pass for empty string and size not 0", fn () =>
+        expect (toNotHaveSize "" 2) toEqualStr "pass"),
+
+     should("fail for non-empty string with specified size", fn () =>
+        expect (toNotHaveSize "ab" 2) toNotEqualStr "pass"),
+
+     should("fail for non-empty string with other size than given", fn () =>
+        expect (toNotHaveSize "abc" 2) toEqualStr "pass")],
+
 describe "toContain"
     [should("fail for empty list", fn () =>
         expect (toContain [] 0) toNotEqualStr "pass"),
