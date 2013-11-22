@@ -14,10 +14,12 @@ sig
     val toHaveSize    : string -> int -> string
     val toNotHaveSize : string -> int -> string
 
-    val toEqualInt    : int -> int -> string
-    val toNotEqualInt : int -> int -> string
-    val toBeInt       : int -> int -> string
-    val toNotBeInt    : int -> int -> string
+    val toEqualInt      : int -> int -> string
+    val toNotEqualInt   : int -> int -> string
+    val toBeInt         : int -> int -> string
+    val toNotBeInt      : int -> int -> string
+    val toBeGreaterThan : int -> int -> string
+    val toBeLessThan    : int -> int -> string
 
     val toContain       : ''a list -> ''a -> string
     val toNotContain    : ''a list -> ''a -> string
@@ -75,7 +77,7 @@ struct
                      "\" to not have size ", Int.toString(value)]
 
     fun checkIntWith operator relation result value =
-        if operator(value, result)
+        if operator(result, value)
         then "pass"
         else concat ["FAIL: expected \"", Int.toString(result),
                      "\" to ", relation, " \"", Int.toString(value), "\""]
@@ -87,6 +89,10 @@ struct
     val toBeInt = toEqualInt
 
     val toNotBeInt = toNotEqualInt
+
+    fun toBeGreaterThan result = checkIntWith (op >) "greater than" result
+
+    fun toBeLessThan result = checkIntWith (op <) "less than" result
 
     fun checkListWith relation result value =
     let

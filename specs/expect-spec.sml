@@ -4,6 +4,26 @@ open Describe;
 open Expect;
 
 suite (describe "matchers" [
+describe "toBeGreaterThan"
+    [should("pass when result is greater than value", fn () =>
+        expect (toBeGreaterThan 7 0) toEqualStr "pass"),
+
+    should("fail when result is equal to value", fn () =>
+        expect (toBeGreaterThan 7 7) toNotEqualStr "pass"),
+
+    should("fail when result is less than value", fn () =>
+        expect (toBeGreaterThan 7 10) toNotEqualStr "pass")],
+
+describe "toBeLessThan"
+    [should("fail when result is greater than value", fn () =>
+        expect (toBeLessThan 7 0) toNotEqualStr "pass"),
+
+    should("fail when result is equal to value", fn () =>
+        expect (toBeLessThan 7 7) toNotEqualStr "pass"),
+
+    should("pass when result is less than value", fn () =>
+        expect (toBeLessThan 7 10) toEqualStr "pass")],
+
 describe "toHaveSize"
     [should("pass for empty string and size 0", fn () =>
         expect (toHaveSize "" 0) toEqualStr "pass"),
