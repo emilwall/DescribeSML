@@ -20,6 +20,8 @@ sig
     val toNotBeInt      : int -> int -> string
     val toBeGreaterThan : int -> int -> string
     val toBeLessThan    : int -> int -> string
+    val toBeAtLeast     : int -> int -> string
+    val toBeAtMost      : int -> int -> string
 
     val toContain       : ''a list -> ''a -> string
     val toNotContain    : ''a list -> ''a -> string
@@ -93,6 +95,10 @@ struct
     val toBeGreaterThan = checkIntWith (op >) "greater than"
 
     val toBeLessThan = checkIntWith (op <) "less than"
+
+    val toBeAtLeast = checkIntWith (op >=) "greater than or equal"
+
+    val toBeAtMost = checkIntWith (op <=) "less than or equal"
 
     fun checkListWith relation result value =
     let
