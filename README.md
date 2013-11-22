@@ -32,28 +32,32 @@ open Expect;
 use "../src/robberlanguage.sml";
 
 suite (describe "RobberLanguage" [
-    describe "isConsonant"
-        [should("consider b to be a consonant", fn () =>
-            expect (RobberLanguage.isConsonant #"b") toBe true),
-    
-         should("consider B to be a consonant", fn () =>
-            expect (RobberLanguage.isConsonant #"B") toBe true),
-    
-         should("not consider a to be a consonant", fn () =>
-            expect (RobberLanguage.isConsonant #"a") toBe false)],
-    
-    describe "translate"
-        [should("repeat consonant with the letter o inserted in between", fn () =>
-            expect (RobberLanguage.translate "s") toEqualStr "sos"),
-    
-         should("not repeat vowels", fn () =>
-            expect (RobberLanguage.translate "a") toEqualStr "a"),
-    
-         should("work for long strings", fn () =>
-            expect (RobberLanguage.translate "a long string") toEqualStr "a lolonongog sostotrorinongog"),
-    
-         should("repeat capital consonants as lower case", fn () =>
-            expect (RobberLanguage.translate "Astrid Lindgren") toEqualStr "Asostotroridod Lolinondodgogrorenon")]
+describe "isConsonant"
+    [should("consider b to be a consonant", fn () =>
+        expect (RobberLanguage.isConsonant #"b") toBe true),
+
+     should("consider capital letters as consonants", fn () =>
+        expect (RobberLanguage.isConsonant #"B") toBe true),
+
+     should("not consider vowels as consonants", fn () =>
+        expect (RobberLanguage.isConsonant #"a") toBe false)],
+
+describe "translate"
+    [should("repeat consonant with the letter o inserted in between", fn () =>
+        expect (RobberLanguage.translate "s")
+            toBeStr "sos"),
+
+     should("not repeat vowels", fn () =>
+        expect (RobberLanguage.translate "a")
+            toHaveSize 1),
+
+     should("work for long strings", fn () =>
+        expect (RobberLanguage.translate "a long string")
+            toMatch "lolonongog"),
+
+     should("repeat capital consonants as lower case", fn () =>
+        expect (RobberLanguage.translate "Astrid Lindgren")
+            toEqualStr "Asostotroridod Lolinondodgogrorenon")]
 ])
 ```
 
@@ -93,14 +97,14 @@ Ran 3 specs for isConsonant:
 !!.
 
 should consider b to be a consonant: FAIL
-should consider B to be a consonant: FAIL
+should consider capital letters as consonants: FAIL
 
 Ran 4 specs for translate:
 
 !.!!
 
 should repeat consonant with the letter o inserted in between: FAIL: expected "Sos" to equal "sos"
-should work for long strings: FAIL: expected "a LoloNonGog SosTotRoriNonGog" to equal "a lolonongog sostotrorinongog"
+should work for long strings: FAIL: expected "a LoloNonGog SosTotRoriNonGog" to match "lolonongog"
 should repeat capital consonants as lower case: FAIL: expected "ASosTotRoriDod LoLiNonDodGogRoreNon" to equal "Asostotroridod Lolinondodgogrorenon"
 
 Total failures: 5
