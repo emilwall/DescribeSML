@@ -23,6 +23,8 @@ sig
     val toBeAtLeast     : int -> int -> string
     val toBeAtMost      : int -> int -> string
 
+    val toEqualReal     : real -> real -> string
+
     val toContain       : ''a list -> ''a -> string
     val toNotContain    : ''a list -> ''a -> string
     val toBeginWith     : ''a list -> ''a -> string
@@ -99,6 +101,13 @@ struct
     val toBeAtLeast = checkIntWith (op >=) "greater than or equal"
 
     val toBeAtMost = checkIntWith (op <=) "less than or equal"
+
+    fun toEqualReal result value =
+        if Real.abs(value - result) < 0.0000001 then
+            "pass"
+        else
+            concat ["FAIL: expected \"", Real.toString(result),
+                    "\" to equal \"", Real.toString(value), "\""]
 
     fun checkListWith relation result value =
     let

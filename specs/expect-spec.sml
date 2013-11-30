@@ -4,6 +4,14 @@ open Describe;
 open Expect;
 
 suite (describe "matchers" [
+describe "toEqual"
+    [should("pass when result is greater than value", fn () =>
+        expect (1 + 1) toEqual 2)],
+
+describe "toEqualReal"
+    [should("pass when result is equal to value", fn () =>
+        expect (1.0 + 1.5) toEqualReal 2.5)],
+
 describe "toBeGreaterThan"
     [should("pass when result is greater than value", fn () =>
         expect (toBeGreaterThan 7 0) toEqualStr "pass"),
