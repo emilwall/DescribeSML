@@ -4,11 +4,11 @@ DescribeSML
 DescribeSML is a [BDD style](http://en.wikipedia.org/wiki/Behavior-driven_development)
 testing framework for [Standard ML of New Jersey](http://www.smlnj.org/),
 similar to [RSpec](http://rspec.info/)
-and [Jasmine](http://pivotal.github.io/jasmine/).
+and [Jasmine](http://pivotal.github.io/jasmine/). [Example](example.sml):
 
 ```SML
 (* Import DescribeSML *)
-CM.make "../../describe.cm";
+CM.make "describe.cm";
 open Describe;
 open Expect;
 
@@ -25,6 +25,14 @@ suite (describe "hello" [
         expect (hello "")
             toMatch "!$")
 ])
+
+(* Output:
+Ran 2 specs for hello:
+
+..
+
+Total failures: 0
+================= *)
 ```
 
 It is a work in progress, developed as part of my thesis
@@ -83,7 +91,7 @@ describe "translate"
 ])
 ```
 
-If we have this (intentionally buggy) implementation:
+If we have [this](example-src/robberlanguage.sml) (intentionally buggy) implementation:
 
 ```SML
 structure RobberLanguage :>
