@@ -34,6 +34,8 @@ sig
     val toHaveLength    : ''a list -> int -> string
     val toNotHaveLength : ''a list -> int -> string
 
+    val toEqualPair     : (''a * ''b) -> (''a * ''b) -> string
+
     val toMatch    : string -> string -> string
     val toNotMatch : string -> string -> string
 
@@ -155,6 +157,16 @@ struct
         then "pass"
         else concat ["FAIL: expected list to not have length ",
                      Int.toString(value)]
+
+    fun toEqualPair (a1, b1) (a2, b2) =
+        let
+            val a = toEqual a1 a2
+            val b = toEqual b1 b2
+        in
+            if a = "pass" andalso b = "pass"
+            then "pass"
+            else "FAIL"
+        end
 
     structure RE = RegExpFn (
         structure P = AwkSyntax

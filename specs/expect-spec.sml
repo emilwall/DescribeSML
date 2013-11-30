@@ -212,6 +212,10 @@ describe "toNotEndWith"
      should("work on string values", fn () =>
         expect (toNotEndWith ["abc", "def"] "ab") toEqualStr "pass")],
 
+describe "toEqualPair"
+    [should("compare both components of a pair", fn () =>
+        expect (1, 1 + 1) toEqualPair (1, 2))],
+
 describe "toMatch"
     [should("match empty string with end terminal", fn () =>
         expect (toMatch "" "$") toEqualStr "pass"),
