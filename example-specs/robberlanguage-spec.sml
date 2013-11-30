@@ -1,7 +1,7 @@
-CM.make "../../describe.cm";
+CM.make "../describe.cm";
 open Describe;
 open Expect;
-use "../src/robberlanguage.sml";
+use "../example-src/robberlanguage.sml";
 
 suite (describe "RobberLanguage" [
 describe "isConsonant"

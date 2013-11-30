@@ -1,7 +1,7 @@
-CM.make "../../describe.cm";
+CM.make "../describe.cm";
 open Describe;
 open Expect;
-use "../src/prime.sml";
+use "../example-src/prime.sml";
 
 suite(describe "Largest prime factor functions" [
 describe "is_prime"

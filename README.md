@@ -32,8 +32,9 @@ It is a work in progress, developed as part of my thesis
 which is also a work in progress.
 
 DescribeSML uses the SML/NJ Compilation and Library Manager (CM), so there is a lot of flexibility
-regarding how to use it. The **examples** directory contains some simple functions and specs (tests)
-of them that use DescribeSML. They use relative references to the .cm file and calls open on the
+regarding how to use it. [example-specs](example-specs) contains some example specs (tests)
+of [simple functions](example-src), using DescribeSML.
+They use relative references to the .cm file and calls open on the
 exported structures, so that ```describe``` and ```should``` can be used instead of ```DescribeSML.describe```
 and ```DescribeSML.should```.
 
@@ -44,13 +45,13 @@ the structures except that the **Describe** functions expect matchers to return 
 either "pass" or "FAIL". This means that you can use them seperately, replacing one of them with your
 own implementation, if you feel like it.
 
-Here is an example of how DescribeSML can be used:
+Here is an example of how DescribeSML can be used (same as [here](example-specs/robberlanguage-spec.sml)):
 
 ```SML
-CM.make "../../describe.cm";
+CM.make "../describe.cm";
 open Describe;
 open Expect;
-use "../src/robberlanguage.sml";
+use "../example-src/robberlanguage.sml";
 
 suite (describe "RobberLanguage" [
 describe "isConsonant"

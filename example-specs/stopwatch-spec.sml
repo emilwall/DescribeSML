@@ -1,7 +1,7 @@
-CM.make "../../describe.cm";
+CM.make "../describe.cm";
 open Describe;
 open Expect;
-use "../src/stopwatch.sml";
+use "../example-src/stopwatch.sml";
 
 fun slow_fib n =
     if n < 3

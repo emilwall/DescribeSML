@@ -1,7 +1,7 @@
-CM.make "../../describe.cm";
+CM.make "../describe.cm";
 open Describe;
 open Expect;
-use "../src/fib.sml";
+use "../example-src/fib.sml";
 
 suite(describe "fibonacci functions" [
 describe "fib"

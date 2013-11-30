@@ -1,7 +1,7 @@
-CM.make "../../describe.cm";
+CM.make "../describe.cm";
 open Describe;
 open Expect;
-use "../src/factorial.sml";
+use "../example-src/factorial.sml";
 
 suite(describe "checked_factorial"
 	[should("return 1 when n = 0", fn () =>
