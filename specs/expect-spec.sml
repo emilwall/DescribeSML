@@ -216,6 +216,10 @@ describe "toEqualPair"
     [should("compare both components of a pair", fn () =>
         expect (1, 1 + 1) toEqualPair (1, 2))],
 
+describe "toEqualRealPair"
+    [should("compare both components of a pair with reals", fn () =>
+        expect (1.0, 1.2 + 0.8) toEqualRealPair (1.0, 2.0))],
+
 describe "toMatch"
     [should("match empty string with end terminal", fn () =>
         expect (toMatch "" "$") toEqualStr "pass"),

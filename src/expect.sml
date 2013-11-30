@@ -35,6 +35,7 @@ sig
     val toNotHaveLength : ''a list -> int -> string
 
     val toEqualPair     : (''a * ''b) -> (''a * ''b) -> string
+    val toEqualRealPair : (real * real) -> (real * real) -> string
 
     val toMatch    : string -> string -> string
     val toNotMatch : string -> string -> string
@@ -166,6 +167,19 @@ struct
             if a = "pass" andalso b = "pass"
             then "pass"
             else "FAIL"
+        end
+
+    fun toEqualRealPair (a1, b1) (a2, b2) =
+        let
+            val a = toEqualReal a1 a2
+            val b = toEqualReal b1 b2
+        in
+            if a = "pass" andalso b = "pass"
+            then "pass"
+            else concat ["FAIL: expected \"(",
+                         Real.toString(a1), ", ", Real.toString(b1),
+                         ")\" to equal \"(",
+                         Real.toString(a2), ", ", Real.toString(b2), ")\""]
         end
 
     structure RE = RegExpFn (
