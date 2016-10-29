@@ -4,7 +4,7 @@ DescribeSML
 DescribeSML is a [BDD style](http://en.wikipedia.org/wiki/Behavior-driven_development)
 testing framework for [Standard ML of New Jersey](http://www.smlnj.org/),
 similar to [RSpec](http://rspec.info/)
-and [Jasmine](http://pivotal.github.io/jasmine/). [Example](example.sml):
+and [Jasmine](http://jasmine.github.io/). [Example](example.sml):
 
 ```SML
 (* Import DescribeSML *)
