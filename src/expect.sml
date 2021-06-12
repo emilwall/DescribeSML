@@ -190,7 +190,7 @@ struct
         let
             val (success, match) =
                 (true, StringCvt.scanString (RE.find (RE.compileString value)))
-            handle RegExpSyntax.CannotParse =>
+            handle RegExpSyntax.CannotCompile =>
                 (false, StringCvt.scanString (RE.find (RE.compileString "$")))
         in
             if success
