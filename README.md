@@ -35,9 +35,9 @@ Total failures: 0
 ================= *)
 ```
 
-It is a work in progress, developed as part of my thesis
+This testing framework was developed as part of my thesis
 [Rationales and Approaches for Automated Testing of JavaScript and Standard ML](https://github.com/emilwall/exjobb),
-which is also a work in progress.
+and not actively maintained. Feel free to add a pull request if you have made an improvement.
 
 DescribeSML uses the SML/NJ Compilation and Library Manager (CM), so there is a lot of flexibility
 regarding how to use it. [example-specs](example-specs) contains some example specs (tests)
@@ -166,4 +166,4 @@ Total failures: 0
 ```
 
 If you have any questions, feedback or requests, please post an issue here on
-github or email me at emil.wall at valtech.se
+github or email me at emilwall89 at gmail.com
